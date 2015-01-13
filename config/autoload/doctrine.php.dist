@@ -1,0 +1,24 @@
+<?php
+/**
+ * Created by PhpStorm.
+ * User: kaseOga
+ * Date: 13/1/15
+ * Time: 16:44
+ */
+
+return array(
+    'doctrine' => array(
+        'connection' => array(
+            'orm_default' => array(
+                'driverClass' => 'Doctrine\DBAL\Driver\PDOMySql\Driver',
+                'params' => array(
+                    'host' => 'host',
+                    'port' => 'port',
+                    'user' => 'user',
+                    'password' => 'password',
+                    'dbname' => 'dbname',
+                )
+            )
+        )
+    )
+);

@@ -6,10 +6,10 @@ return array(
             'user' => array(
                 'type' => 'Zend\Mvc\Router\Http\Literal',
                 'options' => array(
-                    'route'    => '/user',
+                    'route' => '/user',
                     'defaults' => array(
-                        'controller' => 'User\Controller\Login',
-                        'action'     => 'index',
+                        'controller' => 'RegisterFactory',
+                        'action' => 'index',
                     ),
                 ),
             ),
@@ -24,14 +24,19 @@ return array(
             ),
             'orm_default' => array(
                 'drivers' => array(
-                    'User\Entity' =>  'User_driver'
+                    'User\Entity' => 'User_driver'
                 ),
             ),
         ),
     ),
-    'controllers' => array(
+    'service_manager' => array(
         'invokables' => array(
-            'User\Controller\Login' => 'User\Controller\LoginController'
+            'RegisterForm' => 'User\Form\RegisterForm',
+        )
+    ),
+    'controllers' => array(
+        'factories' => array(
+            'RegisterFactory' => 'User\Factory\Form\RegisterFormFactory'
         ),
     ),
     'view_manager' => array(

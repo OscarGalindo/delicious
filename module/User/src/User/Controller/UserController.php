@@ -39,6 +39,11 @@ class UserController extends AbstractActionController
      */
     public function registerAction()
     {
+        $request = $this->getRequest();
+        if($request->isPost()) {
+            $this->registerForm->setData($request->getPost());
+
+        }
         return array(
             'registerForm' => $this->registerForm,
         );

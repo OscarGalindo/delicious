@@ -62,24 +62,16 @@ class Bookmarks
     /**
      * @var \Doctrine\Common\Collections\Collection
      *
-     * @ORM\ManyToMany(targetEntity="User\Entity\Tag", mappedBy="bookmarksidBookmark")
+     * @ORM\ManyToMany(targetEntity="User\Entity\Tag", mappedBy="bookmark")
      */
-    private $tagidTag;
-
-    /**
-     * @var \Doctrine\Common\Collections\Collection
-     *
-     * @ORM\ManyToMany(targetEntity="User\Entity\User", mappedBy="idBookmark")
-     */
-    private $idUser;
+    private $tag;
 
     /**
      * Constructor
      */
     public function __construct()
     {
-        $this->tagidTag = new \Doctrine\Common\Collections\ArrayCollection();
-        $this->idUser = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->tag = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
 
@@ -209,68 +201,35 @@ class Bookmarks
     }
 
     /**
-     * Add tagidTag
+     * Add tag
      *
-     * @param \User\Entity\Tag $tagidTag
+     * @param \User\Entity\Tag $tag
      * @return Bookmarks
      */
-    public function addTagidTag(\User\Entity\Tag $tagidTag)
+    public function addTag(\User\Entity\Tag $tag)
     {
-        $this->tagidTag[] = $tagidTag;
+        $this->tag[] = $tag;
 
         return $this;
     }
 
     /**
-     * Remove tagidTag
+     * Remove tag
      *
-     * @param \User\Entity\Tag $tagidTag
+     * @param \User\Entity\Tag $tag
      */
-    public function removeTagidTag(\User\Entity\Tag $tagidTag)
+    public function removeTag(\User\Entity\Tag $tag)
     {
-        $this->tagidTag->removeElement($tagidTag);
+        $this->tag->removeElement($tag);
     }
 
     /**
-     * Get tagidTag
+     * Get tag
      *
      * @return \Doctrine\Common\Collections\Collection 
      */
-    public function getTagidTag()
+    public function getTag()
     {
-        return $this->tagidTag;
-    }
-
-    /**
-     * Add idUser
-     *
-     * @param \User\Entity\User $idUser
-     * @return Bookmarks
-     */
-    public function addIdUser(\User\Entity\User $idUser)
-    {
-        $this->idUser[] = $idUser;
-
-        return $this;
-    }
-
-    /**
-     * Remove idUser
-     *
-     * @param \User\Entity\User $idUser
-     */
-    public function removeIdUser(\User\Entity\User $idUser)
-    {
-        $this->idUser->removeElement($idUser);
-    }
-
-    /**
-     * Get idUser
-     *
-     * @return \Doctrine\Common\Collections\Collection 
-     */
-    public function getIdUser()
-    {
-        return $this->idUser;
+        return $this->tag;
     }
 }

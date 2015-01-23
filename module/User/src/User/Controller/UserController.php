@@ -2,6 +2,7 @@
 
 namespace User\Controller;
 
+use Doctrine\ORM\EntityManager;
 use Zend\Form\Form;
 use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\ViewModel;
@@ -14,11 +15,41 @@ class UserController extends AbstractActionController
     protected $registerForm;
 
     /**
+     * @var EntityManager
+     */
+    protected $entityManager;
+
+    /**
      * @param Form $registerForm
      */
     function __construct(Form $registerForm)
     {
         $this->registerForm = $registerForm;
+    }
+
+    /**
+     * Set entityManager
+     *
+     * @param EntityManager $em
+     * @return $this
+     */
+    protected function setEntityManager(EntityManager $em)
+    {
+        $this->entityManager = $em;
+        return $this;
+    }
+
+    /**
+     * Devuelve entityManager
+     *
+     * @return EntityManager
+     */
+    protected function getEntityManager()
+    {
+        if (null === $this->entityManager) {
+            $this->setEntityManager($this->getServiceLocator()->get('Doctrine\ORM\EntityManager'));
+        }
+        return $this->entityManager;
     }
 
     /**
@@ -28,7 +59,8 @@ class UserController extends AbstractActionController
      */
     public function indexAction()
     {
-        return new ViewModel();
+        $index = $this->getEntityManager()->getRepository('User\Entity\User');
+        return array('users' => $index->findAll());
     }
 
 

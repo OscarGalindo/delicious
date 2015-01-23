@@ -31,24 +31,24 @@ class Tag
     /**
      * @var \Doctrine\Common\Collections\Collection
      *
-     * @ORM\ManyToMany(targetEntity="User\Entity\Bookmarks", inversedBy="tagidTag")
+     * @ORM\ManyToMany(targetEntity="User\Entity\Bookmarks", inversedBy="tag")
      * @ORM\JoinTable(name="tag_bookmarks",
      *   joinColumns={
-     *     @ORM\JoinColumn(name="Tagid_tag", referencedColumnName="id_tag")
+     *     @ORM\JoinColumn(name="tag", referencedColumnName="id_tag")
      *   },
      *   inverseJoinColumns={
-     *     @ORM\JoinColumn(name="Bookmarksid_bookmark", referencedColumnName="id_bookmark")
+     *     @ORM\JoinColumn(name="bookmark", referencedColumnName="id_bookmark")
      *   }
      * )
      */
-    private $bookmarksidBookmark;
+    private $bookmark;
 
     /**
      * Constructor
      */
     public function __construct()
     {
-        $this->bookmarksidBookmark = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->bookmark = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
 
@@ -86,35 +86,35 @@ class Tag
     }
 
     /**
-     * Add bookmarksidBookmark
+     * Add bookmark
      *
-     * @param \User\Entity\Bookmarks $bookmarksidBookmark
+     * @param \User\Entity\Bookmarks $bookmark
      * @return Tag
      */
-    public function addBookmarksidBookmark(\User\Entity\Bookmarks $bookmarksidBookmark)
+    public function addBookmark(\User\Entity\Bookmarks $bookmark)
     {
-        $this->bookmarksidBookmark[] = $bookmarksidBookmark;
+        $this->bookmark[] = $bookmark;
 
         return $this;
     }
 
     /**
-     * Remove bookmarksidBookmark
+     * Remove bookmark
      *
-     * @param \User\Entity\Bookmarks $bookmarksidBookmark
+     * @param \User\Entity\Bookmarks $bookmark
      */
-    public function removeBookmarksidBookmark(\User\Entity\Bookmarks $bookmarksidBookmark)
+    public function removeBookmark(\User\Entity\Bookmarks $bookmark)
     {
-        $this->bookmarksidBookmark->removeElement($bookmarksidBookmark);
+        $this->bookmark->removeElement($bookmark);
     }
 
     /**
-     * Get bookmarksidBookmark
+     * Get bookmark
      *
      * @return \Doctrine\Common\Collections\Collection 
      */
-    public function getBookmarksidBookmark()
+    public function getBookmark()
     {
-        return $this->bookmarksidBookmark;
+        return $this->bookmark;
     }
 }

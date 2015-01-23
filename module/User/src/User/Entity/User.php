@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * User
  *
- * @ORM\Table(name="User", uniqueConstraints={@ORM\UniqueConstraint(name="id_user", columns={"id_user"}), @ORM\UniqueConstraint(name="email", columns={"email"})})
+ * @ORM\Table(name="User", uniqueConstraints={@ORM\UniqueConstraint(name="username", columns={"username"}), @ORM\UniqueConstraint(name="id_user", columns={"id_user"}), @ORM\UniqueConstraint(name="email", columns={"email"})}, indexes={@ORM\Index(name="FKUser468814", columns={"role"})})
  * @ORM\Entity
  */
 class User
@@ -31,6 +31,13 @@ class User
     /**
      * @var string
      *
+     * @ORM\Column(name="username", type="string", length=255, nullable=false)
+     */
+    private $username;
+
+    /**
+     * @var string
+     *
      * @ORM\Column(name="password", type="string", length=255, nullable=false)
      */
     private $password;
@@ -50,34 +57,15 @@ class User
     private $lastlogin = 'CURRENT_TIMESTAMP';
 
     /**
-     * @var integer
+     * @var \User\Entity\Role
      *
-     * @ORM\Column(name="role", type="integer", nullable=false)
+     * @ORM\ManyToOne(targetEntity="User\Entity\Role")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="role", referencedColumnName="id_role")
+     * })
      */
     private $role;
 
-    /**
-     * @var \Doctrine\Common\Collections\Collection
-     *
-     * @ORM\ManyToMany(targetEntity="User\Entity\Bookmarks", inversedBy="idUser")
-     * @ORM\JoinTable(name="user_bookmarks",
-     *   joinColumns={
-     *     @ORM\JoinColumn(name="id_user", referencedColumnName="id_user")
-     *   },
-     *   inverseJoinColumns={
-     *     @ORM\JoinColumn(name="id_bookmark", referencedColumnName="id_bookmark")
-     *   }
-     * )
-     */
-    private $idBookmark;
-
-    /**
-     * Constructor
-     */
-    public function __construct()
-    {
-        $this->idBookmark = new \Doctrine\Common\Collections\ArrayCollection();
-    }
 
 
     /**
@@ -111,6 +99,29 @@ class User
     public function getEmail()
     {
         return $this->email;
+    }
+
+    /**
+     * Set username
+     *
+     * @param string $username
+     * @return User
+     */
+    public function setUsername($username)
+    {
+        $this->username = $username;
+
+        return $this;
+    }
+
+    /**
+     * Get username
+     *
+     * @return string 
+     */
+    public function getUsername()
+    {
+        return $this->username;
     }
 
     /**
@@ -185,10 +196,10 @@ class User
     /**
      * Set role
      *
-     * @param integer $role
+     * @param \User\Entity\Role $role
      * @return User
      */
-    public function setRole($role)
+    public function setRole(\User\Entity\Role $role = null)
     {
         $this->role = $role;
 
@@ -198,43 +209,10 @@ class User
     /**
      * Get role
      *
-     * @return integer 
+     * @return \User\Entity\Role 
      */
     public function getRole()
     {
         return $this->role;
-    }
-
-    /**
-     * Add idBookmark
-     *
-     * @param \User\Entity\Bookmarks $idBookmark
-     * @return User
-     */
-    public function addIdBookmark(\User\Entity\Bookmarks $idBookmark)
-    {
-        $this->idBookmark[] = $idBookmark;
-
-        return $this;
-    }
-
-    /**
-     * Remove idBookmark
-     *
-     * @param \User\Entity\Bookmarks $idBookmark
-     */
-    public function removeIdBookmark(\User\Entity\Bookmarks $idBookmark)
-    {
-        $this->idBookmark->removeElement($idBookmark);
-    }
-
-    /**
-     * Get idBookmark
-     *
-     * @return \Doctrine\Common\Collections\Collection 
-     */
-    public function getIdBookmark()
-    {
-        return $this->idBookmark;
     }
 }

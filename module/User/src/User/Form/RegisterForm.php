@@ -74,7 +74,7 @@ class RegisterForm extends Form
             ->setLabel('Register')
             ->setAttributes(
                 array(
-                    'class' => 'btn btn-default',
+                    'class' => 'btn  btn-success',
                     'type' => 'submit',
                 )
             );

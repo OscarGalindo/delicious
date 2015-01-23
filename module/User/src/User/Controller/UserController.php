@@ -39,7 +39,9 @@ class UserController extends AbstractActionController
      */
     public function registerAction()
     {
-        return new ViewModel();
+        return array(
+            'registerForm' => $this->registerForm,
+        );
     }
 
     /**

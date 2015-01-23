@@ -3,13 +3,46 @@
 return array(
     'router' => array(
         'routes' => array(
-            'user' => array(
+            'user_profile' => array(
                 'type' => 'Zend\Mvc\Router\Http\Literal',
                 'options' => array(
                     'route' => '/user',
                     'defaults' => array(
-                        'controller' => 'RegisterFactory',
+                        'controller' => 'UserFactory',
                         'action' => 'index',
+                    ),
+                ),
+            ),
+            'user_register' => array(
+                'type' => 'Zend\Mvc\Router\Http\Literal',
+                'options' => array(
+                    'route' => '/register',
+                    'defaults' => array(
+                        'controller' => 'UserFactory',
+                        'action' => 'register',
+                    ),
+                ),
+            ),
+            'user_login' => array(
+                'type' => 'Zend\Mvc\Router\Http\Literal',
+                'options' => array(
+                    'route' => '/login',
+                    'defaults' => array(
+                        'controller' => 'UserFactory',
+                        'action' => 'login',
+                    ),
+                ),
+            ),
+            'user_logout' => array(
+                'type' => 'Zend\Mvc\Router\Http\Segment',
+                'options' => array(
+                    'route' => '/logout[/:redirect_url]',
+                    'constraints' => array(
+                        'redirect_url' => '.*?'
+                    ),
+                    'defaults' => array(
+                        'controller' => 'UserFactory',
+                        'action' => 'logout',
                     ),
                 ),
             ),
@@ -36,7 +69,7 @@ return array(
     ),
     'controllers' => array(
         'factories' => array(
-            'RegisterFactory' => 'User\Factory\Form\RegisterFormFactory'
+            'UserFactory' => 'User\Factory\Form\RegisterFormFactory'
         ),
     ),
     'view_manager' => array(

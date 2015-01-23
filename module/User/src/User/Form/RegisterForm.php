@@ -8,6 +8,7 @@
 
 namespace User\Form;
 
+use Zend\Form\Element\Submit;
 use Zend\Form\Form;
 
 class RegisterForm extends Form
@@ -23,7 +24,9 @@ class RegisterForm extends Form
                     'label' => 'Username',
                 ),
                 'attributes' => array(
-                    'type' => 'text'
+                    'class' => 'form-control',
+                    'type' => 'text',
+                    'placeholder' => 'Username',
                 ),
             )
         );
@@ -34,7 +37,9 @@ class RegisterForm extends Form
                     'label' => 'Email',
                 ),
                 'attributes' => array(
-                    'type' => 'text'
+                    'type' => 'text',
+                    'class' => 'form-control',
+                    'placeholder' => 'Email',
                 ),
             )
         );
@@ -45,7 +50,9 @@ class RegisterForm extends Form
                     'label' => 'Password',
                 ),
                 'attributes' => array(
-                    'type' => 'password'
+                    'type' => 'password',
+                    'class' => 'form-control',
+                    'placeholder' => 'Password',
                 ),
             )
         );
@@ -56,20 +63,22 @@ class RegisterForm extends Form
                     'label' => 'Password Verify',
                 ),
                 'attributes' => array(
-                    'type' => 'password'
+                    'type' => 'password',
+                    'class' => 'form-control',
+                    'placeholder' => 'Password Verify',
                 ),
             )
         );
-        $this->add(
-            array(
-                'name' => 'Register',
-                'options' => array(
-                    'label' => 'Register'
-                ),
-                'attributes' => array(
-                    'type' => 'submit'
+        $submit = new Submit('Register');
+        $submit
+            ->setLabel('Register')
+            ->setAttributes(
+                array(
+                    'class' => 'btn btn-default',
+                    'type' => 'submit',
                 )
-            )
-        );
+            );
+
+        $this->add($submit);
     }
 }

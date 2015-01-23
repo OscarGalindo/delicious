@@ -2,6 +2,7 @@
 
 return array(
     'modules' => array(
+        'Zf2Whoops',
         'Application',
         'DoctrineModule',
         'DoctrineORMModule',

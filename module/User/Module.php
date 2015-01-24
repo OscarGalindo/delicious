@@ -1,9 +1,10 @@
 <?php
 namespace User;
 
+use Zend\ModuleManager\Feature\AutoloaderProviderInterface;
 use Zend\ModuleManager\Feature\ConfigProviderInterface;
 
-class Module implements ConfigProviderInterface
+class Module implements ConfigProviderInterface, AutoloaderProviderInterface
 {
     public function getConfig()
     {

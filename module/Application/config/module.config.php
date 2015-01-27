@@ -27,14 +27,17 @@ return array(
             array(
                 'label' => 'Home',
                 'route' => 'home',
-            ),
-            array(
-                'label' => 'Register',
-                'route' => 'user_register',
+                'icon' => 'fa fa-home',
             ),
             array(
                 'label' => 'Users',
                 'route' => 'user_profile',
+                'icon' => 'fa fa-list',
+            ),
+            array(
+                'label' => 'Register',
+                'route' => 'user_register',
+                'icon' => 'fa fa-sign-in',
             ),
         ),
     ),

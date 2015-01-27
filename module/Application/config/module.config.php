@@ -31,7 +31,7 @@ return array(
             ),
             array(
                 'label' => 'Users',
-                'route' => 'user_profile',
+                'route' => 'user',
                 'icon' => 'fa fa-list',
             ),
             array(

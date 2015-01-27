@@ -3,13 +3,25 @@
 return array(
     'router' => array(
         'routes' => array(
-            'user_profile' => array(
-                'type' => 'Segment',
+            'user' => array(
+                'type' => 'literal',
                 'options' => array(
-                    'route' => '/user[/:id_user]',
+                    'route' => '/user',
                     'defaults' => array(
                         'controller' => 'UserFactory',
                         'action' => 'index',
+                    ),
+                ),
+                'may_terminate' => true,
+                'child_routes' => array(
+                    'profile' => array(
+                        'type' => 'Segment',
+                        'options' => array(
+                            'route' => '/:id_user',
+                            'defaults' => array(
+                                'action' => 'profile',
+                            ),
+                        ),
                     ),
                 ),
             ),

@@ -1,7 +1,7 @@
 <h1>Listado de usuarios</h1>
 <hr class="colorgraph"/>
 
-<table class="table table-striped">
+<table class="table table-striped list-users">
     <thead>
     <tr>
         <th>ID</th>
@@ -15,12 +15,12 @@
     <?php foreach($users as $user): ?>
         <tr>
             <td><?php echo $user->getIdUser() ?></td>
-            <td><?php echo $user->getUsername() ?></td>
+            <td><a href="<?php $this->url('user_profile', array('id_user' => $user->getIdUser())) ?>"><?php echo $user->getUsername() ?></a></td>
             <td><?php echo $user->getEmail() ?></td>
             <td><?php echo $user->getRole()->getName() ?></td>
             <td>
-                <span class="glyphicon glyphicon-pencil"></span>
-                <span class="glyphicon glyphicon-remove"></span>
+                <a class="btn btn-warning" href="#"><i class="fa fa-pencil-square-o fa-lg"></i> Editar</a>
+                <a class="btn btn-danger" href="#"><i class="fa fa-trash-o fa-lg"></i> Eliminar</a>
             </td>
         </tr>
     <?php endforeach ?>

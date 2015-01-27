@@ -4,9 +4,9 @@ return array(
     'router' => array(
         'routes' => array(
             'user_profile' => array(
-                'type' => 'Zend\Mvc\Router\Http\Literal',
+                'type' => 'Segment',
                 'options' => array(
-                    'route' => '/user',
+                    'route' => '/user[/:id_user]',
                     'defaults' => array(
                         'controller' => 'UserFactory',
                         'action' => 'index',
@@ -34,7 +34,7 @@ return array(
                 ),
             ),
             'user_logout' => array(
-                'type' => 'Zend\Mvc\Router\Http\Segment',
+                'type' => 'Segment',
                 'options' => array(
                     'route' => '/logout[/:redirect_url]',
                     'constraints' => array(

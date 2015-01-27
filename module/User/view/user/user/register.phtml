@@ -1,6 +1,3 @@
-<h1>Register</h1>
-<hr class="colorgraph">
-
 <?php
 $form = $this->registerForm;
 $form->prepare();
@@ -9,18 +6,22 @@ $form->setAttribute('method', 'post');
 $form->setAttribute('class', 'form')
 ?>
 
-<?php echo $this->form()->openTag($form) ?>
-<?php foreach ($form as $element): ?>
-    <div class="form-group">
-        <?php if (!$element instanceof Zend\Form\Element\Submit): ?>
-            <?php echo $this->formLabel($element) ?>
-            <?php echo $this->formInput($element) . $this->formElementErrors($element) ?>
-        <?php endif ?>
-    </div>
-    <div class="form-group">
-        <?php if ($element instanceof Zend\Form\Element\Submit): ?>
-            <?php echo $this->formButton($element) ?>
-        <?php endif ?>
-    </div>
-<?php endforeach ?>
-<?php echo $this->form()->closeTag() ?>
+<div id="signup" class="panel panel-default col-md-8 col-md-offset-2">
+    <h1>Register</h1>
+    <hr class="colorgraph">
+    <?php echo $this->form()->openTag($form) ?>
+    <?php foreach ($form as $element): ?>
+        <div class="form-group">
+            <?php if (!$element instanceof Zend\Form\Element\Submit): ?>
+                <?php echo $this->formLabel($element) ?>
+                <?php echo $this->formInput($element) . $this->formElementErrors($element) ?>
+            <?php endif ?>
+        </div>
+        <div class="form-group">
+            <?php if ($element instanceof Zend\Form\Element\Submit): ?>
+                <?php echo $this->formButton($element) ?>
+            <?php endif ?>
+        </div>
+    <?php endforeach ?>
+    <?php echo $this->form()->closeTag() ?>
+</div>

@@ -22,6 +22,22 @@ return array(
             ),
         ),
     ),
+    'navigation' => array(
+        'default' => array(
+            array(
+                'label' => 'Home',
+                'route' => 'home',
+            ),
+            array(
+                'label' => 'Register',
+                'route' => 'user_register',
+            ),
+            array(
+                'label' => 'Users',
+                'route' => 'user_profile',
+            ),
+        ),
+    ),
     'service_manager' => array(
         'abstract_factories' => array(
             'Zend\Cache\Service\StorageCacheAbstractServiceFactory',
@@ -30,6 +46,9 @@ return array(
         'aliases' => array(
             'translator' => 'MvcTranslator',
         ),
+        'factories' => array(
+            'navigation' => 'Zend\Navigation\Service\DefaultNavigationFactory',
+        )
     ),
     'translator' => array(
         'locale' => 'en_US',

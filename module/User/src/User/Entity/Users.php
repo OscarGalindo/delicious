@@ -5,21 +5,21 @@ namespace User\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * User
+ * Users
  *
- * @ORM\Table(name="User", uniqueConstraints={@ORM\UniqueConstraint(name="username", columns={"username"}), @ORM\UniqueConstraint(name="id_user", columns={"id_user"}), @ORM\UniqueConstraint(name="email", columns={"email"})}, indexes={@ORM\Index(name="FKUser468814", columns={"role"})})
+ * @ORM\Table(name="Users", uniqueConstraints={@ORM\UniqueConstraint(name="username", columns={"username"}), @ORM\UniqueConstraint(name="id", columns={"id"}), @ORM\UniqueConstraint(name="email", columns={"email"})}, indexes={@ORM\Index(name="FKUsers678330", columns={"role"}), @ORM\Index(name="FKUsers768078", columns={"city"})})
  * @ORM\Entity
  */
-class User
+class Users
 {
     /**
      * @var integer
      *
-     * @ORM\Column(name="id_user", type="integer", nullable=false)
+     * @ORM\Column(name="id", type="integer", nullable=false)
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="IDENTITY")
      */
-    private $idUser;
+    private $id;
 
     /**
      * @var string
@@ -45,6 +45,20 @@ class User
     /**
      * @var string
      *
+     * @ORM\Column(name="name", type="string", length=255, nullable=false)
+     */
+    private $name;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="lastname", type="string", length=255, nullable=false)
+     */
+    private $lastname;
+
+    /**
+     * @var string
+     *
      * @ORM\Column(name="salt", type="string", length=255, nullable=false)
      */
     private $salt;
@@ -57,32 +71,42 @@ class User
     private $lastlogin = 'CURRENT_TIMESTAMP';
 
     /**
-     * @var \User\Entity\Role
+     * @var \User\Entity\Roles
      *
-     * @ORM\ManyToOne(targetEntity="User\Entity\Role")
+     * @ORM\ManyToOne(targetEntity="User\Entity\Roles")
      * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="role", referencedColumnName="id_role")
+     *   @ORM\JoinColumn(name="role", referencedColumnName="id")
      * })
      */
     private $role;
 
+    /**
+     * @var \User\Entity\Cities
+     *
+     * @ORM\ManyToOne(targetEntity="User\Entity\Cities")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="city", referencedColumnName="id")
+     * })
+     */
+    private $city;
+
 
 
     /**
-     * Get idUser
+     * Get id
      *
      * @return integer 
      */
-    public function getIdUser()
+    public function getId()
     {
-        return $this->idUser;
+        return $this->id;
     }
 
     /**
      * Set email
      *
      * @param string $email
-     * @return User
+     * @return Users
      */
     public function setEmail($email)
     {
@@ -105,7 +129,7 @@ class User
      * Set username
      *
      * @param string $username
-     * @return User
+     * @return Users
      */
     public function setUsername($username)
     {
@@ -128,7 +152,7 @@ class User
      * Set password
      *
      * @param string $password
-     * @return User
+     * @return Users
      */
     public function setPassword($password)
     {
@@ -148,10 +172,56 @@ class User
     }
 
     /**
+     * Set name
+     *
+     * @param string $name
+     * @return Users
+     */
+    public function setName($name)
+    {
+        $this->name = $name;
+
+        return $this;
+    }
+
+    /**
+     * Get name
+     *
+     * @return string 
+     */
+    public function getName()
+    {
+        return $this->name;
+    }
+
+    /**
+     * Set lastname
+     *
+     * @param string $lastname
+     * @return Users
+     */
+    public function setLastname($lastname)
+    {
+        $this->lastname = $lastname;
+
+        return $this;
+    }
+
+    /**
+     * Get lastname
+     *
+     * @return string 
+     */
+    public function getLastname()
+    {
+        return $this->lastname;
+    }
+
+    /**
      * Set salt
      *
      * @param string $salt
-     * @return User
+     * @return Users
      */
     public function setSalt($salt)
     {
@@ -174,7 +244,7 @@ class User
      * Set lastlogin
      *
      * @param \DateTime $lastlogin
-     * @return User
+     * @return Users
      */
     public function setLastlogin($lastlogin)
     {
@@ -196,10 +266,10 @@ class User
     /**
      * Set role
      *
-     * @param \User\Entity\Role $role
-     * @return User
+     * @param \User\Entity\Roles $role
+     * @return Users
      */
-    public function setRole(\User\Entity\Role $role = null)
+    public function setRole(\User\Entity\Roles $role = null)
     {
         $this->role = $role;
 
@@ -209,10 +279,33 @@ class User
     /**
      * Get role
      *
-     * @return \User\Entity\Role 
+     * @return \User\Entity\Roles 
      */
     public function getRole()
     {
         return $this->role;
+    }
+
+    /**
+     * Set city
+     *
+     * @param \User\Entity\Cities $city
+     * @return Users
+     */
+    public function setCity(\User\Entity\Cities $city = null)
+    {
+        $this->city = $city;
+
+        return $this;
+    }
+
+    /**
+     * Get city
+     *
+     * @return \User\Entity\Cities 
+     */
+    public function getCity()
+    {
+        return $this->city;
     }
 }

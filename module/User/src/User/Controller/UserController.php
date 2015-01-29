@@ -2,27 +2,26 @@
 
 namespace User\Controller;
 
-use Doctrine\ORM\EntityManager;
-use Zend\Form\Form;
 use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\ViewModel;
 
 class UserController extends AbstractActionController
 {
+
     /**
      * @var Form
      */
-    protected $registerForm;
+    protected $registerForm = null;
 
     /**
      * @var EntityManager
      */
-    protected $entityManager;
+    protected $entityManager = null;
 
     /**
      * @param Form $registerForm
      */
-    function __construct(Form $registerForm)
+    public function __construct(\Zend\Form\Form $registerForm)
     {
         $this->registerForm = $registerForm;
     }
@@ -33,9 +32,10 @@ class UserController extends AbstractActionController
      * @param EntityManager $em
      * @return $this
      */
-    protected function setEntityManager(EntityManager $em)
+    protected function setEntityManager(\Doctrine\ORM\EntityManager $em)
     {
         $this->entityManager = $em;
+
         return $this;
     }
 
@@ -49,6 +49,7 @@ class UserController extends AbstractActionController
         if (null === $this->entityManager) {
             $this->setEntityManager($this->getServiceLocator()->get('Doctrine\ORM\EntityManager'));
         }
+
         return $this->entityManager;
     }
 
@@ -59,10 +60,10 @@ class UserController extends AbstractActionController
      */
     public function indexAction()
     {
-        $index = $this->getEntityManager()->getRepository('User\Entity\User');
-        return array('users' => $index->findAll());
-    }
+        $users = $this->getEntityManager()->getRepository('User\Entity\Users');
 
+        return array('users' => $users->findAll());
+    }
 
     /**
      * Registro de nuevo usuario
@@ -72,10 +73,11 @@ class UserController extends AbstractActionController
     public function registerAction()
     {
         $request = $this->getRequest();
-        if($request->isPost()) {
+        if ($request->isPost()) {
             $this->registerForm->setData($request->getPost());
 
         }
+
         return array(
             'registerForm' => $this->registerForm,
         );
@@ -99,6 +101,18 @@ class UserController extends AbstractActionController
     public function logoutAction()
     {
         return new ViewModel();
+    }
+
+    /**
+     * Perfil de usuario
+     *
+     * @return ViewModel
+     */
+    public function profileAction()
+    {
+        $id = $this->params()->fromRoute('id_user');
+        $user = $this->getEntityManager()->getRepository('User\Entity\Users');
+        return array('user' => $user->find($id));
     }
 
 

@@ -5,21 +5,21 @@ namespace User\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Tag
+ * Tags
  *
- * @ORM\Table(name="Tag", uniqueConstraints={@ORM\UniqueConstraint(name="id_tag", columns={"id_tag"}), @ORM\UniqueConstraint(name="name", columns={"name"})})
+ * @ORM\Table(name="Tags", uniqueConstraints={@ORM\UniqueConstraint(name="id", columns={"id"}), @ORM\UniqueConstraint(name="name", columns={"name"})})
  * @ORM\Entity
  */
-class Tag
+class Tags
 {
     /**
      * @var integer
      *
-     * @ORM\Column(name="id_tag", type="integer", nullable=false)
+     * @ORM\Column(name="id", type="integer", nullable=false)
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="IDENTITY")
      */
-    private $idTag;
+    private $id;
 
     /**
      * @var string
@@ -34,10 +34,10 @@ class Tag
      * @ORM\ManyToMany(targetEntity="User\Entity\Bookmarks", inversedBy="tag")
      * @ORM\JoinTable(name="tag_bookmarks",
      *   joinColumns={
-     *     @ORM\JoinColumn(name="tag", referencedColumnName="id_tag")
+     *     @ORM\JoinColumn(name="tag", referencedColumnName="id")
      *   },
      *   inverseJoinColumns={
-     *     @ORM\JoinColumn(name="bookmark", referencedColumnName="id_bookmark")
+     *     @ORM\JoinColumn(name="bookmark", referencedColumnName="id")
      *   }
      * )
      */
@@ -53,20 +53,20 @@ class Tag
 
 
     /**
-     * Get idTag
+     * Get id
      *
      * @return integer 
      */
-    public function getIdTag()
+    public function getId()
     {
-        return $this->idTag;
+        return $this->id;
     }
 
     /**
      * Set name
      *
      * @param string $name
-     * @return Tag
+     * @return Tags
      */
     public function setName($name)
     {
@@ -89,7 +89,7 @@ class Tag
      * Add bookmark
      *
      * @param \User\Entity\Bookmarks $bookmark
-     * @return Tag
+     * @return Tags
      */
     public function addBookmark(\User\Entity\Bookmarks $bookmark)
     {

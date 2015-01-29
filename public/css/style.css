@@ -16,3 +16,20 @@ body {
 .list-users td:last-child {
     text-align: right;
 }
+
+.imgoutter img {
+    width: 150px;
+    height: 150px;
+}
+.imgoutter {
+    padding: 5px;
+    border: 1px solid #bebebe;
+    border-radius: 2px;
+}
+.profile {
+    float: left;
+    margin-right: 10px;
+}
+.profile h3 {
+    margin: 0;
+}

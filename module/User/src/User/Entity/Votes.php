@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * Votes
  *
- * @ORM\Table(name="Votes", uniqueConstraints={@ORM\UniqueConstraint(name="id_vote", columns={"id_vote"})}, indexes={@ORM\Index(name="FKVotes946267", columns={"user"}), @ORM\Index(name="FKVotes495411", columns={"bookmark"})})
+ * @ORM\Table(name="Votes", uniqueConstraints={@ORM\UniqueConstraint(name="id", columns={"id"})}, indexes={@ORM\Index(name="FKVotes473119", columns={"user"}), @ORM\Index(name="FKVotes415617", columns={"bookmark"})})
  * @ORM\Entity
  */
 class Votes
@@ -15,11 +15,11 @@ class Votes
     /**
      * @var integer
      *
-     * @ORM\Column(name="id_vote", type="integer", nullable=false)
+     * @ORM\Column(name="id", type="integer", nullable=false)
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="IDENTITY")
      */
-    private $idVote;
+    private $id;
 
     /**
      * @var integer
@@ -33,17 +33,17 @@ class Votes
      *
      * @ORM\ManyToOne(targetEntity="User\Entity\Bookmarks")
      * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="bookmark", referencedColumnName="id_bookmark")
+     *   @ORM\JoinColumn(name="bookmark", referencedColumnName="id")
      * })
      */
     private $bookmark;
 
     /**
-     * @var \User\Entity\User
+     * @var \User\Entity\Users
      *
-     * @ORM\ManyToOne(targetEntity="User\Entity\User")
+     * @ORM\ManyToOne(targetEntity="User\Entity\Users")
      * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="user", referencedColumnName="id_user")
+     *   @ORM\JoinColumn(name="user", referencedColumnName="id")
      * })
      */
     private $user;
@@ -51,13 +51,13 @@ class Votes
 
 
     /**
-     * Get idVote
+     * Get id
      *
      * @return integer 
      */
-    public function getIdVote()
+    public function getId()
     {
-        return $this->idVote;
+        return $this->id;
     }
 
     /**
@@ -109,10 +109,10 @@ class Votes
     /**
      * Set user
      *
-     * @param \User\Entity\User $user
+     * @param \User\Entity\Users $user
      * @return Votes
      */
-    public function setUser(\User\Entity\User $user = null)
+    public function setUser(\User\Entity\Users $user = null)
     {
         $this->user = $user;
 
@@ -122,7 +122,7 @@ class Votes
     /**
      * Get user
      *
-     * @return \User\Entity\User 
+     * @return \User\Entity\Users 
      */
     public function getUser()
     {

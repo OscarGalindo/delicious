@@ -14,8 +14,8 @@
     <tbody>
     <?php foreach($users as $user): ?>
         <tr>
-            <td><?php echo $user->getIdUser() ?></td>
-            <td><a href="<?php echo $this->url('user/profile', array('id_user' => $user->getIdUser())) ?>"><?php echo $user->getUsername() ?></a></td>
+            <td><?php echo $user->getId() ?></td>
+            <td><a href="<?php echo $this->url('user/profile', array('id_user' => $user->getId())) ?>"><?php echo $user->getUsername() ?></a></td>
             <td><?php echo $user->getEmail() ?></td>
             <td><?php echo $user->getRole()->getName() ?></td>
             <td>

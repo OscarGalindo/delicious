@@ -5,21 +5,21 @@ namespace User\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Role
+ * Roles
  *
- * @ORM\Table(name="Role", uniqueConstraints={@ORM\UniqueConstraint(name="id_role", columns={"id_role"}), @ORM\UniqueConstraint(name="name", columns={"name"})})
+ * @ORM\Table(name="Roles", uniqueConstraints={@ORM\UniqueConstraint(name="id", columns={"id"}), @ORM\UniqueConstraint(name="name", columns={"name"})})
  * @ORM\Entity
  */
-class Role
+class Roles
 {
     /**
      * @var integer
      *
-     * @ORM\Column(name="id_role", type="integer", nullable=false)
+     * @ORM\Column(name="id", type="integer", nullable=false)
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="IDENTITY")
      */
-    private $idRole;
+    private $id;
 
     /**
      * @var string
@@ -31,20 +31,20 @@ class Role
 
 
     /**
-     * Get idRole
+     * Get id
      *
      * @return integer 
      */
-    public function getIdRole()
+    public function getId()
     {
-        return $this->idRole;
+        return $this->id;
     }
 
     /**
      * Set name
      *
      * @param string $name
-     * @return Role
+     * @return Roles
      */
     public function setName($name)
     {

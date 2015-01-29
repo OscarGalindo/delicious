@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * Bookmarks
  *
- * @ORM\Table(name="Bookmarks", uniqueConstraints={@ORM\UniqueConstraint(name="url", columns={"url"}), @ORM\UniqueConstraint(name="id_bookmark", columns={"id_bookmark"})}, indexes={@ORM\Index(name="UserBookmarks", columns={"user"})})
+ * @ORM\Table(name="Bookmarks", uniqueConstraints={@ORM\UniqueConstraint(name="url", columns={"url"}), @ORM\UniqueConstraint(name="id", columns={"id"})}, indexes={@ORM\Index(name="UserBookmarks", columns={"user"})})
  * @ORM\Entity
  */
 class Bookmarks
@@ -15,11 +15,11 @@ class Bookmarks
     /**
      * @var integer
      *
-     * @ORM\Column(name="id_bookmark", type="integer", nullable=false)
+     * @ORM\Column(name="id", type="integer", nullable=false)
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="IDENTITY")
      */
-    private $idBookmark;
+    private $id;
 
     /**
      * @var string
@@ -50,11 +50,11 @@ class Bookmarks
     private $createdAt = 'CURRENT_TIMESTAMP';
 
     /**
-     * @var \User\Entity\User
+     * @var \User\Entity\Users
      *
-     * @ORM\ManyToOne(targetEntity="User\Entity\User")
+     * @ORM\ManyToOne(targetEntity="User\Entity\Users")
      * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="user", referencedColumnName="id_user")
+     *   @ORM\JoinColumn(name="user", referencedColumnName="id")
      * })
      */
     private $user;
@@ -62,7 +62,7 @@ class Bookmarks
     /**
      * @var \Doctrine\Common\Collections\Collection
      *
-     * @ORM\ManyToMany(targetEntity="User\Entity\Tag", mappedBy="bookmark")
+     * @ORM\ManyToMany(targetEntity="User\Entity\Tags", mappedBy="bookmark")
      */
     private $tag;
 
@@ -76,13 +76,13 @@ class Bookmarks
 
 
     /**
-     * Get idBookmark
+     * Get id
      *
      * @return integer 
      */
-    public function getIdBookmark()
+    public function getId()
     {
-        return $this->idBookmark;
+        return $this->id;
     }
 
     /**
@@ -180,10 +180,10 @@ class Bookmarks
     /**
      * Set user
      *
-     * @param \User\Entity\User $user
+     * @param \User\Entity\Users $user
      * @return Bookmarks
      */
-    public function setUser(\User\Entity\User $user = null)
+    public function setUser(\User\Entity\Users $user = null)
     {
         $this->user = $user;
 
@@ -193,7 +193,7 @@ class Bookmarks
     /**
      * Get user
      *
-     * @return \User\Entity\User 
+     * @return \User\Entity\Users 
      */
     public function getUser()
     {
@@ -203,10 +203,10 @@ class Bookmarks
     /**
      * Add tag
      *
-     * @param \User\Entity\Tag $tag
+     * @param \User\Entity\Tags $tag
      * @return Bookmarks
      */
-    public function addTag(\User\Entity\Tag $tag)
+    public function addTag(\User\Entity\Tags $tag)
     {
         $this->tag[] = $tag;
 
@@ -216,9 +216,9 @@ class Bookmarks
     /**
      * Remove tag
      *
-     * @param \User\Entity\Tag $tag
+     * @param \User\Entity\Tags $tag
      */
-    public function removeTag(\User\Entity\Tag $tag)
+    public function removeTag(\User\Entity\Tags $tag)
     {
         $this->tag->removeElement($tag);
     }

@@ -2,7 +2,7 @@
 
 namespace User\Controller;
 
-use Doctrine\ORM\EntityManager;
+use Doctrine\ORM\EntityRepository;
 use Zend\Form\Form;
 use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\ViewModel;
@@ -15,17 +15,17 @@ class UserController extends AbstractActionController
     protected $registerForm = null;
 
     /**
-     * @var EntityManager
+     * @var EntityRepository
      */
-    protected $model;
+    protected $userEntity;
 
     /**
      * @param Form $registerForm
      */
-    public function __construct(EntityManager $model, Form $registerForm)
+    public function __construct(EntityRepository $userEntity, Form $registerForm)
     {
         $this->registerForm = $registerForm;
-        $this->model = $model;
+        $this->userEntity = $userEntity;
     }
 
     /**
@@ -35,9 +35,7 @@ class UserController extends AbstractActionController
      */
     public function indexAction()
     {
-        $users = $this->model->getRepository('User\Entity\User');
-
-        return array('users' => $users->findAll());
+        return array('users' => $this->userEntity->findAll());
     }
 
     /**

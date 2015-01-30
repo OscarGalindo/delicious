@@ -5,12 +5,12 @@ namespace User\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Users
+ * User
  *
- * @ORM\Table(name="Users", uniqueConstraints={@ORM\UniqueConstraint(name="username", columns={"username"}), @ORM\UniqueConstraint(name="id", columns={"id"}), @ORM\UniqueConstraint(name="email", columns={"email"})}, indexes={@ORM\Index(name="FKUsers678330", columns={"role"}), @ORM\Index(name="FKUsers768078", columns={"city"})})
+ * @ORM\Table(name="User", uniqueConstraints={@ORM\UniqueConstraint(name="username", columns={"username"}), @ORM\UniqueConstraint(name="id", columns={"id"}), @ORM\UniqueConstraint(name="email", columns={"email"})}, indexes={@ORM\Index(name="FKUser708634", columns={"role"}), @ORM\Index(name="FKUser803907", columns={"city"})})
  * @ORM\Entity
  */
-class Users
+class User
 {
     /**
      * @var integer
@@ -71,9 +71,9 @@ class Users
     private $lastlogin = 'CURRENT_TIMESTAMP';
 
     /**
-     * @var \User\Entity\Roles
+     * @var \User\Entity\Role
      *
-     * @ORM\ManyToOne(targetEntity="User\Entity\Roles")
+     * @ORM\ManyToOne(targetEntity="User\Entity\Role")
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="role", referencedColumnName="id")
      * })
@@ -81,9 +81,9 @@ class Users
     private $role;
 
     /**
-     * @var \User\Entity\Cities
+     * @var \User\Entity\City
      *
-     * @ORM\ManyToOne(targetEntity="User\Entity\Cities")
+     * @ORM\ManyToOne(targetEntity="User\Entity\City")
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="city", referencedColumnName="id")
      * })
@@ -106,7 +106,7 @@ class Users
      * Set email
      *
      * @param string $email
-     * @return Users
+     * @return User
      */
     public function setEmail($email)
     {
@@ -129,7 +129,7 @@ class Users
      * Set username
      *
      * @param string $username
-     * @return Users
+     * @return User
      */
     public function setUsername($username)
     {
@@ -152,7 +152,7 @@ class Users
      * Set password
      *
      * @param string $password
-     * @return Users
+     * @return User
      */
     public function setPassword($password)
     {
@@ -175,7 +175,7 @@ class Users
      * Set name
      *
      * @param string $name
-     * @return Users
+     * @return User
      */
     public function setName($name)
     {
@@ -198,7 +198,7 @@ class Users
      * Set lastname
      *
      * @param string $lastname
-     * @return Users
+     * @return User
      */
     public function setLastname($lastname)
     {
@@ -221,7 +221,7 @@ class Users
      * Set salt
      *
      * @param string $salt
-     * @return Users
+     * @return User
      */
     public function setSalt($salt)
     {
@@ -244,7 +244,7 @@ class Users
      * Set lastlogin
      *
      * @param \DateTime $lastlogin
-     * @return Users
+     * @return User
      */
     public function setLastlogin($lastlogin)
     {
@@ -266,10 +266,10 @@ class Users
     /**
      * Set role
      *
-     * @param \User\Entity\Roles $role
-     * @return Users
+     * @param \User\Entity\Role $role
+     * @return User
      */
-    public function setRole(\User\Entity\Roles $role = null)
+    public function setRole(\User\Entity\Role $role = null)
     {
         $this->role = $role;
 
@@ -279,7 +279,7 @@ class Users
     /**
      * Get role
      *
-     * @return \User\Entity\Roles 
+     * @return \User\Entity\Role 
      */
     public function getRole()
     {
@@ -289,10 +289,10 @@ class Users
     /**
      * Set city
      *
-     * @param \User\Entity\Cities $city
-     * @return Users
+     * @param \User\Entity\City $city
+     * @return User
      */
-    public function setCity(\User\Entity\Cities $city = null)
+    public function setCity(\User\Entity\City $city = null)
     {
         $this->city = $city;
 
@@ -302,7 +302,7 @@ class Users
     /**
      * Get city
      *
-     * @return \User\Entity\Cities 
+     * @return \User\Entity\City 
      */
     public function getCity()
     {

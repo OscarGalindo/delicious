@@ -5,12 +5,12 @@ namespace User\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Cities
+ * City
  *
- * @ORM\Table(name="Cities", uniqueConstraints={@ORM\UniqueConstraint(name="name", columns={"name"}), @ORM\UniqueConstraint(name="id", columns={"id"})})
+ * @ORM\Table(name="City", uniqueConstraints={@ORM\UniqueConstraint(name="name", columns={"name"}), @ORM\UniqueConstraint(name="id", columns={"id"})})
  * @ORM\Entity
  */
-class Cities
+class City
 {
     /**
      * @var integer
@@ -44,7 +44,7 @@ class Cities
      * Set name
      *
      * @param string $name
-     * @return Cities
+     * @return City
      */
     public function setName($name)
     {

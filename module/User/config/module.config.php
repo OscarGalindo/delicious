@@ -62,14 +62,14 @@ return array(
     ),
     'doctrine' => array(
         'driver' => array(
-            'User_driver' => array(
+            'users_entities' => array(
                 'class' => 'Doctrine\ORM\Mapping\Driver\AnnotationDriver',
                 'cache' => 'array',
-                'paths' => array(__DIR__ . '/../src/User/Entity')
+                'paths' => array(__DIR__ . '/../src/User/Entity'),
             ),
             'orm_default' => array(
                 'drivers' => array(
-                    'User\Entity' => 'User_driver'
+                    'User\Entity' => 'users_entities',
                 ),
             ),
         ),

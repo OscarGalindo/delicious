@@ -5,12 +5,12 @@ namespace User\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Roles
+ * Role
  *
- * @ORM\Table(name="Roles", uniqueConstraints={@ORM\UniqueConstraint(name="id", columns={"id"}), @ORM\UniqueConstraint(name="name", columns={"name"})})
+ * @ORM\Table(name="Role", uniqueConstraints={@ORM\UniqueConstraint(name="id", columns={"id"}), @ORM\UniqueConstraint(name="name", columns={"name"})})
  * @ORM\Entity
  */
-class Roles
+class Role
 {
     /**
      * @var integer
@@ -44,7 +44,7 @@ class Roles
      * Set name
      *
      * @param string $name
-     * @return Roles
+     * @return Role
      */
     public function setName($name)
     {

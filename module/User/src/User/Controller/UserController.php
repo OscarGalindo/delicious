@@ -2,12 +2,13 @@
 
 namespace User\Controller;
 
+use Doctrine\ORM\EntityManager;
+use Zend\Form\Form;
 use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\ViewModel;
 
 class UserController extends AbstractActionController
 {
-
     /**
      * @var Form
      */
@@ -16,41 +17,15 @@ class UserController extends AbstractActionController
     /**
      * @var EntityManager
      */
-    protected $entityManager = null;
+    protected $model;
 
     /**
      * @param Form $registerForm
      */
-    public function __construct(\Zend\Form\Form $registerForm)
+    public function __construct(EntityManager $model, Form $registerForm)
     {
         $this->registerForm = $registerForm;
-    }
-
-    /**
-     * Set entityManager
-     *
-     * @param EntityManager $em
-     * @return $this
-     */
-    protected function setEntityManager(\Doctrine\ORM\EntityManager $em)
-    {
-        $this->entityManager = $em;
-
-        return $this;
-    }
-
-    /**
-     * Devuelve entityManager
-     *
-     * @return EntityManager
-     */
-    protected function getEntityManager()
-    {
-        if (null === $this->entityManager) {
-            $this->setEntityManager($this->getServiceLocator()->get('Doctrine\ORM\EntityManager'));
-        }
-
-        return $this->entityManager;
+        $this->model = $model;
     }
 
     /**
@@ -60,7 +35,7 @@ class UserController extends AbstractActionController
      */
     public function indexAction()
     {
-        $users = $this->getEntityManager()->getRepository('User\Entity\Users');
+        $users = $this->model->getRepository('User\Entity\User');
 
         return array('users' => $users->findAll());
     }
@@ -111,7 +86,7 @@ class UserController extends AbstractActionController
     public function profileAction()
     {
         $id = $this->params()->fromRoute('id_user');
-        $user = $this->getEntityManager()->getRepository('User\Entity\Users');
+        $user = $this->model->getRepository('User\Entity\Users');
         return array('user' => $user->find($id));
     }
 

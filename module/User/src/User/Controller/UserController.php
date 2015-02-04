@@ -3,6 +3,7 @@
 namespace User\Controller;
 
 use Doctrine\ORM\EntityRepository;
+use User\Entity\User;
 use Zend\Form\Form;
 use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\ViewModel;
@@ -24,8 +25,8 @@ class UserController extends AbstractActionController
      */
     public function __construct(EntityRepository $userEntity, Form $registerForm)
     {
+        $this->userEntity   = $userEntity;
         $this->registerForm = $registerForm;
-        $this->userEntity = $userEntity;
     }
 
     /**
@@ -45,15 +46,22 @@ class UserController extends AbstractActionController
      */
     public function registerAction()
     {
+        $form = $this->registerForm;
+        $user = new User();
+        $form->bind($user);
+
         $request = $this->getRequest();
         if ($request->isPost()) {
+            $form->setData($this->getRequest()->getPost());
+            if($form->isValid() === true) {
+
+            }
+            $user = new User();
             $this->registerForm->setData($request->getPost());
 
         }
 
-        return array(
-            'registerForm' => $this->registerForm,
-        );
+        return array('registerForm' => $this->registerForm);
     }
 
     /**
@@ -83,8 +91,9 @@ class UserController extends AbstractActionController
      */
     public function profileAction()
     {
-        $id = $this->params()->fromRoute('id_user');
+        $id   = $this->params()->fromRoute('id_user');
         $user = $this->model->getRepository('User\Entity\Users');
+
         return array('user' => $user->find($id));
     }
 

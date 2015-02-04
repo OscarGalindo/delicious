@@ -2,23 +2,21 @@
 /**
  * Created by PhpStorm.
  * User: kaseOga
- * Date: 21/1/15
- * Time: 18:12
+ * Date: 30/1/15
+ * Time: 20:16
  */
 
-namespace User\Factory\Form;
+namespace User\Factory\Controller;
 
-use Doctrine\ORM\EntityManager;
+
 use User\Controller\UserController;
 use User\Entity\User;
+use User\Form\RegisterForm;
 use Zend\ServiceManager\FactoryInterface;
 use Zend\ServiceManager\ServiceLocatorInterface;
 
-class RegisterFormFactory implements FactoryInterface {
-    /**
-     * @var EntityManager ORM
-     */
-    protected $entityManager;
+class UserFactory implements FactoryInterface
+{
 
     /**
      * Create service
@@ -29,7 +27,11 @@ class RegisterFormFactory implements FactoryInterface {
     public function createService(ServiceLocatorInterface $serviceLocator)
     {
         $serviceManager = $serviceLocator->getServiceLocator();
-        $form = $serviceManager->get('RegisterForm');
-        return $form;
+        $model = $serviceManager->get('Doctrine\ORM\EntityManager')->getRepository(
+            'User\Entity\User'
+        );
+        $form  = $serviceManager->get('RegisterFormFactory');
+
+        return new UserController($model, $form);
     }
 }

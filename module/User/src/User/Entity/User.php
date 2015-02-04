@@ -3,6 +3,9 @@
 namespace User\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Zend\InputFilter\InputFilter;
+use Zend\InputFilter\InputFilterAwareInterface;
+use Zend\InputFilter\InputFilterInterface;
 
 /**
  * User
@@ -10,7 +13,7 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Table(name="User", uniqueConstraints={@ORM\UniqueConstraint(name="username", columns={"username"}), @ORM\UniqueConstraint(name="id", columns={"id"}), @ORM\UniqueConstraint(name="email", columns={"email"})}, indexes={@ORM\Index(name="FKUser708634", columns={"role"}), @ORM\Index(name="FKUser803907", columns={"city"})})
  * @ORM\Entity
  */
-class User
+class User implements InputFilterAwareInterface
 {
     /**
      * @var integer
@@ -91,11 +94,10 @@ class User
     private $city;
 
 
-
     /**
      * Get id
      *
-     * @return integer 
+     * @return integer
      */
     public function getId()
     {
@@ -118,7 +120,7 @@ class User
     /**
      * Get email
      *
-     * @return string 
+     * @return string
      */
     public function getEmail()
     {
@@ -141,7 +143,7 @@ class User
     /**
      * Get username
      *
-     * @return string 
+     * @return string
      */
     public function getUsername()
     {
@@ -164,7 +166,7 @@ class User
     /**
      * Get password
      *
-     * @return string 
+     * @return string
      */
     public function getPassword()
     {
@@ -187,7 +189,7 @@ class User
     /**
      * Get name
      *
-     * @return string 
+     * @return string
      */
     public function getName()
     {
@@ -210,7 +212,7 @@ class User
     /**
      * Get lastname
      *
-     * @return string 
+     * @return string
      */
     public function getLastname()
     {
@@ -233,7 +235,7 @@ class User
     /**
      * Get salt
      *
-     * @return string 
+     * @return string
      */
     public function getSalt()
     {
@@ -256,7 +258,7 @@ class User
     /**
      * Get lastlogin
      *
-     * @return \DateTime 
+     * @return \DateTime
      */
     public function getLastlogin()
     {
@@ -279,7 +281,7 @@ class User
     /**
      * Get role
      *
-     * @return \User\Entity\Role 
+     * @return \User\Entity\Role
      */
     public function getRole()
     {
@@ -302,10 +304,91 @@ class User
     /**
      * Get city
      *
-     * @return \User\Entity\City 
+     * @return \User\Entity\City
      */
     public function getCity()
     {
         return $this->city;
+    }
+
+    /**
+     * Set input filter
+     *
+     * @param  InputFilterInterface $inputFilter
+     * @return InputFilterAwareInterface
+     */
+    public function setInputFilter(InputFilterInterface $inputFilter)
+    {
+        // TODO: Implement setInputFilter() method.
+    }
+
+    /**
+     * Retrieve input filter
+     *
+     * @return InputFilterInterface
+     */
+    public function getInputFilter()
+    {
+        $inputFilter = new InputFilter();
+        $inputFilter->add(
+            array(
+                'name' => 'username',
+                'required' => true,
+                'filters' => array(
+                    array('name' => 'StripTags'),
+                    array('name' => 'StringTrim'),
+                ),
+                'validators' => array(
+                    array(
+                        'name' => 'StringLength',
+                        'options' => array(
+                            'encoding' => 'UTF-8',
+                            'min' => 3,
+                            'max' => 50,
+                        ),
+                    ),
+                ),
+            )
+        );
+
+        $inputFilter->add(
+            array(
+                'name' => 'email',
+                'required' => true,
+                'filters' => array(
+                    array('name' => 'StripTags'),
+                    array('name' => 'StringTrim'),
+                ),
+                'validators' => array(
+                    array(
+                        'name' => 'EmailAddress',
+                        'options' => array(
+                            'encoding' => 'UTF-8',
+                            'min' => 3,
+                            'max' => 50,
+                        ),
+                    ),
+                ),
+            )
+        );
+
+        $inputFilter->add(
+            array(
+                'name' => 'passwordVerify',
+                'required' => true,
+                'filters' => array(
+                    array('name' => 'StripTags'),
+                    array('name' => 'StringTrim'),
+                ),
+                'validators' => array(
+                    array(
+                        'name' => 'Identical',
+                        'options' => array(
+                            'token' => 'password',
+                        ),
+                    ),
+                ),
+            )
+        );
     }
 }

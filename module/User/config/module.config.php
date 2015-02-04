@@ -75,9 +75,9 @@ return array(
         ),
     ),
     'service_manager' => array(
-        'invokables' => array(
-            'RegisterForm' => 'User\Form\RegisterForm',
-        )
+        'factories' => array(
+            'RegisterFormFactory' => 'User\Form\RegisterForm',
+        ),
     ),
     'controllers' => array(
         'factories' => array(

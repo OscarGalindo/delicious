@@ -9,8 +9,6 @@
 namespace User\Factory\Form;
 
 use Doctrine\ORM\EntityManager;
-use User\Controller\UserController;
-use User\Entity\User;
 use Zend\ServiceManager\FactoryInterface;
 use Zend\ServiceManager\ServiceLocatorInterface;
 

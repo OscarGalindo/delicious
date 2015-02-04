@@ -10,8 +10,6 @@ namespace User\Factory\Controller;
 
 
 use User\Controller\UserController;
-use User\Entity\User;
-use User\Form\RegisterForm;
 use Zend\ServiceManager\FactoryInterface;
 use Zend\ServiceManager\ServiceLocatorInterface;
 
@@ -30,7 +28,7 @@ class UserFactory implements FactoryInterface
         $model = $serviceManager->get('Doctrine\ORM\EntityManager')->getRepository(
             'User\Entity\User'
         );
-        $form  = $serviceManager->get('RegisterFormFactory');
+        $form = $serviceManager->get('RegisterFormFactory');
 
         return new UserController($model, $form);
     }

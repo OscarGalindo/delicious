@@ -75,13 +75,16 @@ return array(
         ),
     ),
     'service_manager' => array(
+        'invokables' => array(
+            'RegisterForm' => 'User\Form\RegisterForm',
+        ),
         'factories' => array(
-            'RegisterFormFactory' => 'User\Form\RegisterForm',
+            'RegisterFormFactory' => 'User\Factory\Form\RegisterFormFactory',
         ),
     ),
     'controllers' => array(
         'factories' => array(
-            'UserFactory' => 'User\Factory\Form\RegisterFormFactory'
+            'UserFactory' => 'User\Factory\Controller\UserFactory',
         ),
     ),
     'view_manager' => array(

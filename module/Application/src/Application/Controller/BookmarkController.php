@@ -43,7 +43,7 @@ class BookmarkController extends AbstractActionController
     {
         $bookmarks = $this->bookmarkEntity->findAll();
 
-        return ['bookmarkForm' => $bookmarks];
+        return ['bookmarks' => $bookmarks];
     }
 
     /**

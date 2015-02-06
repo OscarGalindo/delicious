@@ -47,22 +47,23 @@ class UserController extends AbstractActionController
      */
     public function registerAction()
     {
-        $form = $this->registerForm;
         $user = new User();
-        $form->bind($user);
+        $form = $this->registerForm->bind($user);
 
         $request = $this->getRequest();
         if ($request->isPost()) {
-            $form->setData($this->getRequest()->getPost());
-            if($form->isValid() === true) {
+            $form->setInputFilter($user->getInputFilter());
+            $form->setData($request->getPost());
 
+            if ($form->isValid()) {
+                $this->userEntity->persist($user);
+                $this->userEntity->flush();
+
+                return $this->redirect()->toRoute('user_login');
             }
-            $user = new User();
-            $this->registerForm->setData($request->getPost());
-
         }
 
-        return array('registerForm' => $this->registerForm);
+        return array('registerForm' => $form);
     }
 
     /**

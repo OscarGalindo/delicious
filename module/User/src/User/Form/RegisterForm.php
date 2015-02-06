@@ -18,45 +18,13 @@ class RegisterForm extends Form
     {
         parent::__construct();
 
-        $this->add(
-            array(
-                'name' => 'username',
-                'options' => array(
-                    'label' => 'Username',
-                ),
-                'attributes' => array(
-                    'class' => 'form-control',
-                    'type' => 'text',
-                    'placeholder' => 'Username',
-                ),
+        $this->add(array(
+            'type' => 'RegisterFormFieldsetFactory',
+            'options' => array(
+                'use_as_base_fieldset' => true
             )
-        );
-        $this->add(
-            array(
-                'name' => 'email',
-                'options' => array(
-                    'label' => 'Email',
-                ),
-                'attributes' => array(
-                    'type' => 'text',
-                    'class' => 'form-control',
-                    'placeholder' => 'Email',
-                ),
-            )
-        );
-        $this->add(
-            array(
-                'name' => 'password',
-                'options' => array(
-                    'label' => 'Password',
-                ),
-                'attributes' => array(
-                    'type' => 'password',
-                    'class' => 'form-control',
-                    'placeholder' => 'Password',
-                ),
-            )
-        );
+        ));
+
         $this->add(
             array(
                 'name' => 'passwordVerify',

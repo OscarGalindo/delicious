@@ -74,6 +74,11 @@ return array(
             ),
         ),
     ),
+    'form_elements' => array(
+        'factories' => array(
+            'RegisterFormFieldsetFactory' => 'User\Factory\Form\RegisterFormFieldsetFactory',
+        ),
+    ),
     'service_manager' => array(
         'factories' => array(
             'RegisterFormFactory' => 'User\Factory\Form\RegisterFormFactory',

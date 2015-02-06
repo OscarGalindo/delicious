@@ -3,9 +3,6 @@
 namespace User\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-use Zend\InputFilter\InputFilter;
-use Zend\InputFilter\InputFilterAwareInterface;
-use Zend\InputFilter\InputFilterInterface;
 
 /**
  * User
@@ -13,7 +10,7 @@ use Zend\InputFilter\InputFilterInterface;
  * @ORM\Table(name="User", uniqueConstraints={@ORM\UniqueConstraint(name="username", columns={"username"}), @ORM\UniqueConstraint(name="id", columns={"id"}), @ORM\UniqueConstraint(name="email", columns={"email"})}, indexes={@ORM\Index(name="FKUser708634", columns={"role"}), @ORM\Index(name="FKUser803907", columns={"city"})})
  * @ORM\Entity
  */
-class User implements InputFilterAwareInterface
+class User
 {
     /**
      * @var integer
@@ -74,7 +71,7 @@ class User implements InputFilterAwareInterface
     private $lastlogin = 'CURRENT_TIMESTAMP';
 
     /**
-     * @var \User\Entity\Role
+     * @var Role
      *
      * @ORM\ManyToOne(targetEntity="User\Entity\Role")
      * @ORM\JoinColumns({
@@ -84,7 +81,7 @@ class User implements InputFilterAwareInterface
     private $role;
 
     /**
-     * @var \User\Entity\City
+     * @var City
      *
      * @ORM\ManyToOne(targetEntity="User\Entity\City")
      * @ORM\JoinColumns({
@@ -268,10 +265,10 @@ class User implements InputFilterAwareInterface
     /**
      * Set role
      *
-     * @param \User\Entity\Role $role
+     * @param Role $role
      * @return User
      */
-    public function setRole(\User\Entity\Role $role = null)
+    public function setRole(Role $role = null)
     {
         $this->role = $role;
 
@@ -281,7 +278,7 @@ class User implements InputFilterAwareInterface
     /**
      * Get role
      *
-     * @return \User\Entity\Role
+     * @return Role
      */
     public function getRole()
     {
@@ -291,10 +288,10 @@ class User implements InputFilterAwareInterface
     /**
      * Set city
      *
-     * @param \User\Entity\City $city
+     * @param City $city
      * @return User
      */
-    public function setCity(\User\Entity\City $city = null)
+    public function setCity(City $city = null)
     {
         $this->city = $city;
 
@@ -304,91 +301,10 @@ class User implements InputFilterAwareInterface
     /**
      * Get city
      *
-     * @return \User\Entity\City
+     * @return City
      */
     public function getCity()
     {
         return $this->city;
-    }
-
-    /**
-     * Set input filter
-     *
-     * @param  InputFilterInterface $inputFilter
-     * @return InputFilterAwareInterface
-     */
-    public function setInputFilter(InputFilterInterface $inputFilter)
-    {
-        // TODO: Implement setInputFilter() method.
-    }
-
-    /**
-     * Retrieve input filter
-     *
-     * @return InputFilterInterface
-     */
-    public function getInputFilter()
-    {
-        $inputFilter = new InputFilter();
-        $inputFilter->add(
-            array(
-                'name' => 'username',
-                'required' => true,
-                'filters' => array(
-                    array('name' => 'StripTags'),
-                    array('name' => 'StringTrim'),
-                ),
-                'validators' => array(
-                    array(
-                        'name' => 'StringLength',
-                        'options' => array(
-                            'encoding' => 'UTF-8',
-                            'min' => 3,
-                            'max' => 50,
-                        ),
-                    ),
-                ),
-            )
-        );
-
-        $inputFilter->add(
-            array(
-                'name' => 'email',
-                'required' => true,
-                'filters' => array(
-                    array('name' => 'StripTags'),
-                    array('name' => 'StringTrim'),
-                ),
-                'validators' => array(
-                    array(
-                        'name' => 'EmailAddress',
-                        'options' => array(
-                            'encoding' => 'UTF-8',
-                            'min' => 3,
-                            'max' => 50,
-                        ),
-                    ),
-                ),
-            )
-        );
-
-        $inputFilter->add(
-            array(
-                'name' => 'passwordVerify',
-                'required' => true,
-                'filters' => array(
-                    array('name' => 'StripTags'),
-                    array('name' => 'StringTrim'),
-                ),
-                'validators' => array(
-                    array(
-                        'name' => 'Identical',
-                        'options' => array(
-                            'token' => 'password',
-                        ),
-                    ),
-                ),
-            )
-        );
     }
 }

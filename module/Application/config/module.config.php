@@ -41,6 +41,15 @@ return array(
                             ),
                         ),
                     ),
+                    'add' => array(
+                        'type' => 'literal',
+                        'options' => array(
+                            'route'    => '/add',
+                            'defaults' => array(
+                                'action'     => 'add',
+                            ),
+                        ),
+                    ),
                 ),
             ),
         ),

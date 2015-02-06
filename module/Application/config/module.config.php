@@ -21,12 +21,25 @@ return array(
                 ),
             ),
             'bookmark' => array(
-                'type' => 'Zend\Mvc\Router\Http\Literal',
+                'type' => 'literal',
                 'options' => array(
-                    'route'    => '/bookmarks',
+                    'route'    => '/bookmark',
                     'defaults' => array(
                         'controller' => 'BookmarkController',
                         'action'     => 'show',
+                    ),
+                ),
+
+                'may_terminate' => true,
+                'child_routes' => array(
+                    'create' => array(
+                        'type' => 'literal',
+                        'options' => array(
+                            'route'    => '/create',
+                            'defaults' => array(
+                                'action'     => 'create',
+                            ),
+                        ),
                     ),
                 ),
             ),
@@ -66,7 +79,10 @@ return array(
         ),
         'factories' => array(
             'navigation' => 'Zend\Navigation\Service\DefaultNavigationFactory',
-        )
+        ),
+        'invokables' => array(
+            'CreateForm' => 'Application\Form\CreateForm',
+        ),
     ),
     'translator' => array(
         'locale' => 'en_US',

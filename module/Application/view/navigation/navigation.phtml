@@ -4,7 +4,6 @@ $container = $this->container;
 <ul class="nav navbar-nav">
     <?php foreach ($container as $page): ?>
         <?php if (!$this->navigation()->accept($page)) continue; ?>
-        <?php /* @var $page Zend\Navigation\Page\Mvc */ ?>
             <li<?php if ($page->isActive()) echo ' class="active"' ?>>
                 <a
                     class="nav-header"

@@ -39,6 +39,11 @@ return array(
                 'route' => 'user_register',
                 'icon' => 'fa fa-sign-in',
             ),
+            array(
+                'label' => 'Bookmarks',
+                'route' => 'bookmark',
+                'icon' => 'fa fa-sign-in',
+            ),
         ),
     ),
     'service_manager' => array(

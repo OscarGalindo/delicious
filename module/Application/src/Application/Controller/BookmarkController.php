@@ -2,6 +2,8 @@
 
 namespace Application\Controller;
 
+use Doctrine\ORM\EntityRepository;
+use Zend\Form\Form;
 use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\ViewModel;
 
@@ -22,7 +24,7 @@ class BookmarkController extends AbstractActionController
      * @param EntityRepository $bookmarkEntity
      * @param Form $createForm
      */
-    public function __construct(\Doctrine\ORM\EntityRepository $bookmarkEntity, \Zend\Form\Form $createForm)
+    public function __construct(EntityRepository $bookmarkEntity, Form $createForm)
     {
         $this->bookmarkEntity = $bookmarkEntity;
         $this->createForm     = $createForm;
@@ -72,7 +74,7 @@ class BookmarkController extends AbstractActionController
 
     public function addAction()
     {
-        return new ViewModel();
+
     }
 
 

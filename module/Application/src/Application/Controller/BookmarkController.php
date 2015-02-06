@@ -2,6 +2,7 @@
 
 namespace Application\Controller;
 
+use Application\Entity\Bookmark;
 use Doctrine\ORM\EntityRepository;
 use Zend\Form\Form;
 use Zend\Mvc\Controller\AbstractActionController;
@@ -74,9 +75,21 @@ class BookmarkController extends AbstractActionController
 
     public function addAction()
     {
+        $user = new Bookmark();
+        $form = $this->registerForm->bind($user);
 
+        $request = $this->getRequest();
+        if ($request->isPost()) {
+            $form->setInputFilter($user->getInputFilter());
+            $form->setData($request->getPost());
+
+            if ($form->isValid()) {
+                $this->userEntity->persist($user);
+                $this->userEntity->flush();
+
+                return $this->redirect()->toRoute('user_login');
+            }
+        }
     }
-
-
 }
 

@@ -4,6 +4,7 @@ namespace User\Controller;
 
 use Doctrine\ORM\EntityRepository;
 use User\Entity\User;
+use User\Form\RegisterForm;
 use Zend\Form\Form;
 use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\ViewModel;
@@ -11,7 +12,7 @@ use Zend\View\Model\ViewModel;
 class UserController extends AbstractActionController
 {
     /**
-     * @var Form
+     * @var RegisterForm
      */
     protected $registerForm = null;
 
@@ -23,7 +24,7 @@ class UserController extends AbstractActionController
     /**
      * @param Form $registerForm
      */
-    public function __construct(EntityRepository $userEntity, Form $registerForm)
+    public function __construct(EntityRepository $userEntity, RegisterForm $registerForm)
     {
         $this->userEntity   = $userEntity;
         $this->registerForm = $registerForm;

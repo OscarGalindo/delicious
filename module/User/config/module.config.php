@@ -8,7 +8,7 @@ return array(
                 'options' => array(
                     'route' => '/user',
                     'defaults' => array(
-                        'controller' => 'UserFactory',
+                        'controller' => 'UserControllerFactory',
                         'action' => 'index',
                     ),
                 ),
@@ -30,7 +30,7 @@ return array(
                 'options' => array(
                     'route' => '/register',
                     'defaults' => array(
-                        'controller' => 'UserFactory',
+                        'controller' => 'UserControllerFactory',
                         'action' => 'register',
                     ),
                 ),
@@ -40,7 +40,7 @@ return array(
                 'options' => array(
                     'route' => '/login',
                     'defaults' => array(
-                        'controller' => 'UserFactory',
+                        'controller' => 'UserControllerFactory',
                         'action' => 'login',
                     ),
                 ),
@@ -53,7 +53,7 @@ return array(
                         'redirect_url' => '.*?'
                     ),
                     'defaults' => array(
-                        'controller' => 'UserFactory',
+                        'controller' => 'UserControllerFactory',
                         'action' => 'logout',
                     ),
                 ),
@@ -75,16 +75,13 @@ return array(
         ),
     ),
     'service_manager' => array(
-        'invokables' => array(
-            'RegisterForm' => 'User\Form\RegisterForm',
-        ),
         'factories' => array(
             'RegisterFormFactory' => 'User\Factory\Form\RegisterFormFactory',
         ),
     ),
     'controllers' => array(
         'factories' => array(
-            'UserFactory' => 'User\Factory\Controller\UserFactory',
+            'UserControllerFactory' => 'User\Factory\Controller\UserControllerFactory',
         ),
     ),
     'view_manager' => array(

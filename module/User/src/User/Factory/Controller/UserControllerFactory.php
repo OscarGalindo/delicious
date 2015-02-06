@@ -13,7 +13,7 @@ use User\Controller\UserController;
 use Zend\ServiceManager\FactoryInterface;
 use Zend\ServiceManager\ServiceLocatorInterface;
 
-class UserFactory implements FactoryInterface
+class UserControllerFactory implements FactoryInterface
 {
 
     /**
@@ -22,14 +22,17 @@ class UserFactory implements FactoryInterface
      * @param ServiceLocatorInterface $serviceLocator
      * @return mixed
      */
-    public function createService(ServiceLocatorInterface $serviceLocator)
+    public function createService(ServiceLocatorInterface $controllerManager)
     {
-        $serviceManager = $serviceLocator->getServiceLocator();
-        $model = $serviceManager->get('Doctrine\ORM\EntityManager')->getRepository(
-            'User\Entity\User'
-        );
+        $serviceManager = $controllerManager->getServiceLocator();
+
+        $model = $serviceManager->get('Doctrine\ORM\EntityManager');
+        $user  = $model->getRepository('User\Entity\User');
+
         $form = $serviceManager->get('RegisterFormFactory');
 
-        return new UserController($model, $form);
+        $controller = new UserController($user, $form);
+
+        return $controller;
     }
 }

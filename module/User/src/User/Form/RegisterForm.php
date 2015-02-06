@@ -8,21 +8,15 @@
 
 namespace User\Form;
 
-use Doctrine\Common\Persistence\ObjectManager;
-use DoctrineModule\Stdlib\Hydrator\DoctrineObject;
-use User\Entity\User;
 use Zend\Form\Element\Submit;
 use Zend\Form\Form;
 
 class RegisterForm extends Form
 {
 
-    function __construct(ObjectManager $objectManager)
+    function __construct()
     {
         parent::__construct();
-
-        $this->setHydrator(new DoctrineObject($objectManager))
-            ->setObject(new User());
 
         $this->add(
             array(

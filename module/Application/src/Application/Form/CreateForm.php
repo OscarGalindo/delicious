@@ -2,55 +2,22 @@
 
 namespace Application\Form;
 
+use Doctrine\Common\Persistence\ObjectManager;
+use DoctrineModule\Stdlib\Hydrator\DoctrineObject;
 use Zend\Form\Element\Submit;
 use Zend\Form\Form;
 
 class CreateForm extends Form
 {
 
-    function __construct()
+    function __construct(ObjectManager $objectManager)
     {
-        parent::__construct();
+        parent::__construct('bookmarkForm');
 
-        $this->add(
-            array(
-                'name' => 'url',
-                'options' => array(
-                    'label' => 'URL',
-                ),
-                'attributes' => array(
-                    'class' => 'form-control',
-                    'type' => 'text',
-                    'placeholder' => 'URL del bookmark',
-                ),
-            )
-        );
-        $this->add(
-            array(
-                'name' => 'title',
-                'options' => array(
-                    'label' => 'Titulo',
-                ),
-                'attributes' => array(
-                    'type' => 'text',
-                    'class' => 'form-control',
-                    'placeholder' => 'Titulo descriptivo del bookmark',
-                ),
-            )
-        );
-        $this->add(
-            array(
-                'name' => 'description',
-                'options' => array(
-                    'label' => 'Descripcion',
-                ),
-                'attributes' => array(
-                    'type' => 'text',
-                    'class' => 'form-control',
-                    'placeholder' => 'Descripción del bookmark',
-                ),
-            )
-        );
+        $this->setHydrator(new DoctrineObject($objectManager));
+        $blogPostFieldset = new bookmarkFieldset($objectManager);
+        $blogPostFieldset->setUseAsBaseFieldset(true);
+        $this->add($blogPostFieldset);
 
         $submit = new Submit('Crear');
         $submit

@@ -3,8 +3,8 @@
 namespace Application\Controller;
 
 use Application\Entity\Bookmark;
-use Doctrine\ORM\EntityRepository;
-use Zend\Form\Form;
+use Application\Form\CreateForm;
+use Doctrine\ORM\EntityManager;
 use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\ViewModel;
 
@@ -12,23 +12,16 @@ class BookmarkController extends AbstractActionController
 {
 
     /**
-     * @var EntityRepository
+     * @var EntityManager
      */
-    protected $bookmarkEntity = null;
+    protected $entityManager = null;
 
     /**
-     * @var Form
+     * @param EntityManager $entityManager
      */
-    private $createForm = null;
-
-    /**
-     * @param EntityRepository $bookmarkEntity
-     * @param Form $createForm
-     */
-    public function __construct(EntityRepository $bookmarkEntity, Form $createForm)
+    public function __construct(EntityManager $entityManager)
     {
-        $this->bookmarkEntity = $bookmarkEntity;
-        $this->createForm     = $createForm;
+        $this->entityManager = $entityManager;
     }
 
     /**
@@ -44,9 +37,9 @@ class BookmarkController extends AbstractActionController
      */
     public function showAction()
     {
-        $bookmarks = $this->bookmarkEntity->findAll();
-
-        return ['bookmarks' => $bookmarks];
+//        $bookmarks = $this->entityManager->findAll();
+//
+        return ['bookmarks' => array()];
     }
 
     /**
@@ -54,7 +47,21 @@ class BookmarkController extends AbstractActionController
      */
     public function createAction()
     {
-        return ['createForm' => $this->createForm];
+        $bookmarkForm = new CreateForm($this->entityManager);
+
+        $bookmark = new Bookmark();
+        $bookmarkForm->bind($bookmark);
+
+        if ($this->request->isPost()) {
+            $bookmarkForm->setData($this->request->getPost());
+
+            if ($bookmarkForm->isValid()) {
+                $this->entityManager->persist($bookmark);
+                $this->entityManager->flush();
+            }
+        }
+
+        return array('createForm' => $bookmarkForm);
     }
 
     /**
@@ -71,25 +78,6 @@ class BookmarkController extends AbstractActionController
     public function deleteAction()
     {
         return new ViewModel();
-    }
-
-    public function addAction()
-    {
-        $user = new Bookmark();
-        $form = $this->registerForm->bind($user);
-
-        $request = $this->getRequest();
-        if ($request->isPost()) {
-            $form->setInputFilter($user->getInputFilter());
-            $form->setData($request->getPost());
-
-            if ($form->isValid()) {
-                $this->userEntity->persist($user);
-                $this->userEntity->flush();
-
-                return $this->redirect()->toRoute('user_login');
-            }
-        }
     }
 }
 

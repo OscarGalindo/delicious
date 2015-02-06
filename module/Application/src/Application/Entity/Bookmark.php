@@ -43,15 +43,6 @@ class Bookmark
     private $description;
 
     /**
-     * @var \DateTime
-     *
-     * @ORM\Column(name="created_at", type="datetime", nullable=false)
-     */
-    private $createdAt = 'CURRENT_TIMESTAMP';
-
-
-
-    /**
      * Get id
      *
      * @return integer 
@@ -128,28 +119,5 @@ class Bookmark
     public function getDescription()
     {
         return $this->description;
-    }
-
-    /**
-     * Set createdAt
-     *
-     * @param \DateTime $createdAt
-     * @return Bookmark
-     */
-    public function setCreatedAt($createdAt)
-    {
-        $this->createdAt = $createdAt;
-
-        return $this;
-    }
-
-    /**
-     * Get createdAt
-     *
-     * @return \DateTime 
-     */
-    public function getCreatedAt()
-    {
-        return $this->createdAt;
     }
 }

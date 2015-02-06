@@ -1,3 +1,9 @@
 Module: Application
 Controller: Bookmark
 Action: show
+
+<?php
+
+foreach($bookmarks as $bm) {
+    echo 'URL: ' . $bm->url;
+}

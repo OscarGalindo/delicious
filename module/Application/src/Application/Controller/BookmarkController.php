@@ -37,9 +37,9 @@ class BookmarkController extends AbstractActionController
      */
     public function showAction()
     {
-//        $bookmarks = $this->entityManager->findAll();
-//
-        return ['bookmarks' => array()];
+        $bookmarks = $this->entityManager->getRepository('Application\Entity\Bookmark')->findAll();
+
+        return ['bookmarks' => $bookmarks];
     }
 
     /**

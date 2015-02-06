@@ -1,9 +1,14 @@
-Module: Application
-Controller: Bookmark
-Action: show
-
-<?php
-
-foreach($bookmarks as $bm) {
-    echo 'URL: ' . $bm->url;
-}
+<div class="container">
+    <div class="row">
+        <ul class="listrap">
+            <?php foreach($bookmarks as $bm): ?>
+            <li>
+                <div class="listrap-toggle">
+                    <img src="http://lorempixel.com/60/60/people/?v=1" class="img-circle" />
+                </div>
+                <strong><a target="_blank" href="<?php echo $bm->getUrl(); ?>"><?php echo $bm->getTitle(); ?></a> - <?php echo $bm->getDescription(); ?></strong>
+            </li>
+            <?php endforeach; ?>
+        </ul>
+    </div>
+</div>

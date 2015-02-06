@@ -21,7 +21,11 @@ class BookmarkControllerFactory implements FactoryInterface
      */
     public function createService(ServiceLocatorInterface $controllerManager)
     {
-//        $serviceManager = $controllerManager->getServiceLocator();
-        return new BookmarkController();
+        $serviceManager = $controllerManager->getServiceLocator();
+
+        $model    = $serviceManager->get('Doctrine\ORM\EntityManager');
+        $bookmark = $model->getRepository('Application\Entity\Bookmark');
+
+        return new BookmarkController($bookmark);
     }
 }

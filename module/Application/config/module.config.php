@@ -41,15 +41,6 @@ return array(
                             ),
                         ),
                     ),
-                    'add' => array(
-                        'type' => 'literal',
-                        'options' => array(
-                            'route'    => '/add',
-                            'defaults' => array(
-                                'action'     => 'add',
-                            ),
-                        ),
-                    ),
                 ),
             ),
         ),
@@ -72,9 +63,14 @@ return array(
                 'icon' => 'fa fa-sign-in',
             ),
             array(
-                'label' => 'Bookmarks',
+                'label' => 'Bookmarks Index',
                 'route' => 'bookmark',
                 'icon' => 'fa fa-star',
+            ),
+            array(
+                'label' => 'Create bookmark',
+                'route' => 'bookmark/create',
+                'icon' => 'fa fa-plus',
             ),
         ),
     ),

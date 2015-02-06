@@ -20,6 +20,16 @@ return array(
                     ),
                 ),
             ),
+            'bookmark' => array(
+                'type' => 'Zend\Mvc\Router\Http\Literal',
+                'options' => array(
+                    'route'    => '/bookmarks',
+                    'defaults' => array(
+                        'controller' => 'BookmarkController',
+                        'action'     => 'show',
+                    ),
+                ),
+            ),
         ),
     ),
     'navigation' => array(
@@ -42,7 +52,7 @@ return array(
             array(
                 'label' => 'Bookmarks',
                 'route' => 'bookmark',
-                'icon' => 'fa fa-sign-in',
+                'icon' => 'fa fa-star',
             ),
         ),
     ),
@@ -70,7 +80,10 @@ return array(
     ),
     'controllers' => array(
         'invokables' => array(
-            'Application\Controller\Index' => 'Application\Controller\IndexController'
+            'Application\Controller\Index' => 'Application\Controller\IndexController',
+        ),
+        'factories' => array(
+            'BookmarkController' => 'Application\Factory\BookmarkControllerFactory',
         ),
     ),
     'view_manager' => array(
@@ -89,7 +102,6 @@ return array(
             __DIR__ . '/../view',
         ),
     ),
-    // Placeholder for console routes
     'console' => array(
         'router' => array(
             'routes' => array(

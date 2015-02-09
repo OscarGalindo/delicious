@@ -13,31 +13,30 @@ return array(
             'home' => array(
                 'type' => 'Zend\Mvc\Router\Http\Literal',
                 'options' => array(
-                    'route'    => '/',
+                    'route' => '/',
                     'defaults' => array(
                         'controller' => 'Application\Controller\Index',
-                        'action'     => 'index',
+                        'action' => 'index',
                     ),
                 ),
             ),
             'bookmark' => array(
                 'type' => 'literal',
                 'options' => array(
-                    'route'    => '/bookmark',
+                    'route' => '/bookmark',
                     'defaults' => array(
                         'controller' => 'BookmarkController',
-                        'action'     => 'show',
+                        'action' => 'show',
                     ),
                 ),
-
                 'may_terminate' => true,
                 'child_routes' => array(
                     'create' => array(
                         'type' => 'literal',
                         'options' => array(
-                            'route'    => '/create',
+                            'route' => '/create',
                             'defaults' => array(
-                                'action'     => 'create',
+                                'action' => 'create',
                             ),
                         ),
                     ),
@@ -66,11 +65,13 @@ return array(
                 'label' => 'Bookmarks Index',
                 'route' => 'bookmark',
                 'icon' => 'fa fa-star',
-            ),
-            array(
-                'label' => 'Create bookmark',
-                'route' => 'bookmark/create',
-                'icon' => 'fa fa-plus',
+                'pages' => array(
+                    array(
+                        'label' => 'Create bookmark',
+                        'route' => 'bookmark/create',
+                        'icon' => 'fa fa-plus',
+                    ),
+                ),
             ),
         ),
     ),
@@ -93,9 +94,9 @@ return array(
         'locale' => 'en_US',
         'translation_file_patterns' => array(
             array(
-                'type'     => 'gettext',
+                'type' => 'gettext',
                 'base_dir' => __DIR__ . '/../language',
-                'pattern'  => '%s.mo',
+                'pattern' => '%s.mo',
             ),
         ),
     ),
@@ -109,15 +110,15 @@ return array(
     ),
     'view_manager' => array(
         'display_not_found_reason' => true,
-        'display_exceptions'       => true,
-        'doctype'                  => 'HTML5',
-        'not_found_template'       => 'error/404',
-        'exception_template'       => 'error/index',
+        'display_exceptions' => true,
+        'doctype' => 'HTML5',
+        'not_found_template' => 'error/404',
+        'exception_template' => 'error/index',
         'template_map' => array(
-            'layout/layout'           => __DIR__ . '/../view/layout/layout.phtml',
+            'layout/layout' => __DIR__ . '/../view/layout/layout.phtml',
             'application/index/index' => __DIR__ . '/../view/application/index/index.phtml',
-            'error/404'               => __DIR__ . '/../view/error/404.phtml',
-            'error/index'             => __DIR__ . '/../view/error/index.phtml',
+            'error/404' => __DIR__ . '/../view/error/404.phtml',
+            'error/index' => __DIR__ . '/../view/error/index.phtml',
         ),
         'template_path_stack' => array(
             __DIR__ . '/../view',
@@ -139,8 +140,7 @@ return array(
     ),
     'console' => array(
         'router' => array(
-            'routes' => array(
-            ),
+            'routes' => array(),
         ),
     ),
 );

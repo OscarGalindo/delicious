@@ -1,19 +1,13 @@
-<?php
-$container = $this->container;
-?>
 <ul class="nav navbar-nav">
     <?php foreach ($container as $page): ?>
         <?php if (!$this->navigation()->accept($page)) continue; ?>
-            <li<?php if ($page->isActive()) echo ' class="active"' ?>>
-                <a
-                    class="nav-header"
-                    href="<?php echo $page->getHref() ?>"
-                    >
-                    <?php if ($page->get("icon") !== ""): ?>
-                        <span class="<?php echo $page->get("icon"); ?> fa-lg"></span>
-                    <?php endif; ?>
-                    <?php echo $page->getLabel() ?>
-                </a>
-            </li>
+        <li <?php if ($page->isActive()) echo 'class="active"' ?>>
+            <a class="nav-header" href="<?php echo $page->getHref() ?>">
+                <?php if ($page->get("icon") !== ""): ?>
+                    <span class="<?php echo $page->get("icon"); ?> fa-lg"></span>
+                <?php endif; ?>
+                <?php echo $page->getLabel() ?>
+            </a>
+        </li>
     <?php endforeach ?>
 </ul>

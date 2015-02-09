@@ -27,11 +27,8 @@ class UserControllerFactory implements FactoryInterface
         $serviceManager = $controllerManager->getServiceLocator();
 
         $model = $serviceManager->get('Doctrine\ORM\EntityManager');
-        $user  = $model->getRepository('User\Entity\User');
 
-        $form = $serviceManager->get('RegisterFormFactory');
-
-        $controller = new UserController($user, $form);
+        $controller = new UserController($model);
 
         return $controller;
     }

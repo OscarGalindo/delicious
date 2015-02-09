@@ -17,7 +17,6 @@
             <td><?php echo $user->getId() ?></td>
             <td><a href="<?php echo $this->url('user/profile', array('id_user' => $user->getId())) ?>"><?php echo $user->getUsername() ?></a></td>
             <td><?php echo $user->getEmail() ?></td>
-            <td><?php echo $user->getRole()->getName() ?></td>
             <td>
                 <a class="btn btn-warning" href="#"><i class="fa fa-pencil-square-o fa-lg"></i> Editar</a>
                 <a class="btn btn-danger" href="#"><i class="fa fa-trash-o fa-lg"></i> Eliminar</a>

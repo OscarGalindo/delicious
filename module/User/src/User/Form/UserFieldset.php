@@ -8,18 +8,27 @@
 
 namespace User\Form;
 
-use Doctrine\ORM\EntityManager;
+use Doctrine\Common\Persistence\ObjectManager;
+use DoctrineModule\Stdlib\Hydrator\DoctrineObject;
+use User\Entity\User;
 use Zend\Form\Fieldset;
 use Zend\InputFilter\InputFilter;
 use Zend\InputFilter\InputFilterProviderInterface;
 
-class RegisterFormFieldset extends Fieldset implements InputFilterProviderInterface
+class UserFieldset extends Fieldset implements InputFilterProviderInterface
 {
-    function __construct(EntityManager $entityManager)
+    function __construct(ObjectManager $objectManager)
     {
-        parent::__construct('RegisterForm');
+        parent::__construct('UserFieldset');
+        $this->setHydrator(new DoctrineObject($objectManager))
+            ->setObject(new User());
 
-        $this->setLabel('User');
+        $this->add(
+            array(
+                'type' => 'Zend\Form\Element\Hidden',
+                'name' => 'id'
+            )
+        );
 
         $this->add(
             array(
@@ -31,6 +40,19 @@ class RegisterFormFieldset extends Fieldset implements InputFilterProviderInterf
                     'class' => 'form-control',
                     'type' => 'text',
                     'placeholder' => 'Username',
+                ),
+            )
+        );
+        $this->add(
+            array(
+                'name' => 'name',
+                'options' => array(
+                    'label' => 'Name',
+                ),
+                'attributes' => array(
+                    'class' => 'form-control',
+                    'type' => 'text',
+                    'placeholder' => 'Name',
                 ),
             )
         );
@@ -70,8 +92,7 @@ class RegisterFormFieldset extends Fieldset implements InputFilterProviderInterf
      */
     public function getInputFilterSpecification()
     {
-        $inputFilter = new InputFilter();
-        $inputFilter->add(
+        return array(
             array(
                 'name' => 'username',
                 'required' => true,
@@ -89,10 +110,7 @@ class RegisterFormFieldset extends Fieldset implements InputFilterProviderInterf
                         ),
                     ),
                 ),
-            )
-        );
-
-        $inputFilter->add(
+            ),
             array(
                 'name' => 'email',
                 'required' => true,
@@ -112,26 +130,5 @@ class RegisterFormFieldset extends Fieldset implements InputFilterProviderInterf
                 ),
             )
         );
-
-        $inputFilter->add(
-            array(
-                'name' => 'passwordVerify',
-                'required' => true,
-                'filters' => array(
-                    array('name' => 'StripTags'),
-                    array('name' => 'StringTrim'),
-                ),
-                'validators' => array(
-                    array(
-                        'name' => 'Identical',
-                        'options' => array(
-                            'token' => 'password',
-                        ),
-                    ),
-                ),
-            )
-        );
-
-        return $inputFilter;
     }
 }

@@ -74,14 +74,9 @@ return array(
             ),
         ),
     ),
-    'form_elements' => array(
-        'factories' => array(
-            'RegisterFormFieldsetFactory' => 'User\Factory\Form\RegisterFormFieldsetFactory',
-        ),
-    ),
     'service_manager' => array(
-        'factories' => array(
-            'RegisterFormFactory' => 'User\Factory\Form\RegisterFormFactory',
+        'invokables' => array(
+            'RegisterForm' => 'User\Form\RegisterForm',
         ),
     ),
     'controllers' => array(
@@ -93,5 +88,10 @@ return array(
         'template_path_stack' => array(
             'currency' => __DIR__ . '/../view',
         )
+    ),
+    'view_helpers' => array(
+        'invokables' => array(
+            'renderForm' => 'User\View\Helper\RenderForm'
+        ),
     ),
 );

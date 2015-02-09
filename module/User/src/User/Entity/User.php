@@ -57,20 +57,6 @@ class User
     private $lastname;
 
     /**
-     * @var string
-     *
-     * @ORM\Column(name="salt", type="string", length=255, nullable=false)
-     */
-    private $salt;
-
-    /**
-     * @var \DateTime
-     *
-     * @ORM\Column(name="lastLogin", type="datetime", nullable=false)
-     */
-    private $lastlogin = 'CURRENT_TIMESTAMP';
-
-    /**
      * @var Role
      *
      * @ORM\ManyToOne(targetEntity="User\Entity\Role")
@@ -214,52 +200,6 @@ class User
     public function getLastname()
     {
         return $this->lastname;
-    }
-
-    /**
-     * Set salt
-     *
-     * @param string $salt
-     * @return User
-     */
-    public function setSalt($salt)
-    {
-        $this->salt = $salt;
-
-        return $this;
-    }
-
-    /**
-     * Get salt
-     *
-     * @return string
-     */
-    public function getSalt()
-    {
-        return $this->salt;
-    }
-
-    /**
-     * Set lastlogin
-     *
-     * @param \DateTime $lastlogin
-     * @return User
-     */
-    public function setLastlogin($lastlogin)
-    {
-        $this->lastlogin = $lastlogin;
-
-        return $this;
-    }
-
-    /**
-     * Get lastlogin
-     *
-     * @return \DateTime
-     */
-    public function getLastlogin()
-    {
-        return $this->lastlogin;
     }
 
     /**

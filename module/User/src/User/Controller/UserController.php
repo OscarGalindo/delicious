@@ -2,6 +2,7 @@
 
 namespace User\Controller;
 
+use Doctrine\Common\Persistence\ObjectManager;
 use Doctrine\ORM\EntityRepository;
 use User\Entity\User;
 use User\Form\RegisterForm;
@@ -12,22 +13,16 @@ use Zend\View\Model\ViewModel;
 class UserController extends AbstractActionController
 {
     /**
-     * @var RegisterForm
+     * @var ObjectManager
      */
-    protected $registerForm = null;
+    protected $entityManager;
 
     /**
-     * @var EntityRepository
+     * @param ObjectManager $entityManager
      */
-    protected $userEntity;
-
-    /**
-     * @param Form $registerForm
-     */
-    public function __construct(EntityRepository $userEntity, RegisterForm $registerForm)
+    public function __construct(ObjectManager $entityManager)
     {
-        $this->userEntity   = $userEntity;
-        $this->registerForm = $registerForm;
+        $this->entityManager = $entityManager;
     }
 
     /**
@@ -37,7 +32,9 @@ class UserController extends AbstractActionController
      */
     public function indexAction()
     {
-        return array('users' => $this->userEntity->findAll());
+        return [
+            'users' => $this->entityManager->getRepository('User\Entity\User')->findAll()
+        ];
     }
 
     /**
@@ -47,23 +44,21 @@ class UserController extends AbstractActionController
      */
     public function registerAction()
     {
+        $createUserForm = new RegisterForm($this->entityManager);
+
         $user = new User();
-        $form = $this->registerForm->bind($user);
+        $createUserForm->bind($user);
 
-        $request = $this->getRequest();
-        if ($request->isPost()) {
-            $form->setInputFilter($user->getInputFilter());
-            $form->setData($request->getPost());
+        if ($this->request->isPost()) {
+            $createUserForm->setData($this->request->getPost());
 
-            if ($form->isValid()) {
-                $this->userEntity->persist($user);
-                $this->userEntity->flush();
-
-                return $this->redirect()->toRoute('user_login');
+            if ($createUserForm->isValid()) {
+                $this->entityManager->persist($user);
+                $this->entityManager->flush();
             }
         }
 
-        return array('registerForm' => $form);
+        return array('createForm' => $createUserForm);
     }
 
     /**
@@ -94,9 +89,11 @@ class UserController extends AbstractActionController
     public function profileAction()
     {
         $id   = $this->params()->fromRoute('id_user');
-        $user = $this->model->getRepository('User\Entity\Users');
+        $user = $this->entityManager->getRepository('User\Entity\User');
 
-        return array('user' => $user->find($id));
+        return [
+            'user' => $user->find($id)
+        ];
     }
 
 

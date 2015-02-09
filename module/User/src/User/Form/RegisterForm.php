@@ -8,22 +8,24 @@
 
 namespace User\Form;
 
+use Doctrine\Common\Persistence\ObjectManager;
+use DoctrineModule\Stdlib\Hydrator\DoctrineObject;
 use Zend\Form\Element\Submit;
 use Zend\Form\Form;
+use Zend\InputFilter\Input;
+use Zend\InputFilter\InputFilterProviderInterface;
 
-class RegisterForm extends Form
+class RegisterForm extends Form implements InputFilterProviderInterface
 {
 
-    function __construct()
+    function __construct(ObjectManager $objectManager)
     {
-        parent::__construct();
+        parent::__construct('bookmarkForm');
 
-        $this->add(array(
-            'type' => 'RegisterFormFieldsetFactory',
-            'options' => array(
-                'use_as_base_fieldset' => true
-            )
-        ));
+        $this->setHydrator(new DoctrineObject($objectManager));
+        $userFieldset = new UserFieldset($objectManager);
+        $userFieldset->setUseAsBaseFieldset(true);
+        $this->add($userFieldset);
 
         $this->add(
             array(
@@ -40,14 +42,32 @@ class RegisterForm extends Form
         );
         $submit = new Submit('Register');
         $submit
-            ->setLabel('Register')
             ->setAttributes(
                 array(
-                    'class' => 'btn  btn-success',
+                    'class' => 'btn btn-success',
                     'type' => 'submit',
+                    'value' => 'Register'
                 )
             );
 
         $this->add($submit);
+    }
+
+    /**
+     * Should return an array specification compatible with
+     * {@link Zend\InputFilter\Factory::createInputFilter()}.
+     *
+     * @return array
+     */
+    public function getInputFilterSpecification()
+    {
+        return array(
+            'passwordVerify' => array(
+                'name' => 'Identical',
+                'options' => array(
+                    'token' => 'password',
+                ),
+            ),
+        );
     }
 }

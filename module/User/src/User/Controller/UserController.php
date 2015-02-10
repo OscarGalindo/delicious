@@ -55,6 +55,8 @@ class UserController extends AbstractActionController
             if ($createUserForm->isValid()) {
                 $this->entityManager->persist($user);
                 $this->entityManager->flush();
+                $id = $user->getId();
+                return $this->redirect()->toRoute('user/profile', ['id_user' => $id]);
             }
         }
 

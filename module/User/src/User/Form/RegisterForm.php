@@ -13,6 +13,7 @@ use DoctrineModule\Stdlib\Hydrator\DoctrineObject;
 use Zend\Form\Element\Submit;
 use Zend\Form\Form;
 use Zend\InputFilter\Input;
+use Zend\InputFilter\InputFilter;
 use Zend\InputFilter\InputFilterProviderInterface;
 
 class RegisterForm extends Form implements InputFilterProviderInterface
@@ -20,7 +21,7 @@ class RegisterForm extends Form implements InputFilterProviderInterface
 
     function __construct(ObjectManager $objectManager)
     {
-        parent::__construct('bookmarkForm');
+        parent::__construct('UserForm');
 
         $this->setHydrator(new DoctrineObject($objectManager));
         $userFieldset = new UserFieldset($objectManager);
@@ -63,9 +64,14 @@ class RegisterForm extends Form implements InputFilterProviderInterface
     {
         return array(
             'passwordVerify' => array(
-                'name' => 'Identical',
-                'options' => array(
-                    'token' => 'password',
+                'name' => 'passwordVerify',
+                'validators' => array(
+                    array(
+                        'name' => 'Identical',
+                        'options' => array(
+                            'token' => array('UserFieldset' => 'password'),
+                        ),
+                    )
                 ),
             ),
         );

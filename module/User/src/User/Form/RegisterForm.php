@@ -8,23 +8,21 @@
 
 namespace User\Form;
 
-use Doctrine\Common\Persistence\ObjectManager;
+use Doctrine\ORM\EntityManager;
 use DoctrineModule\Stdlib\Hydrator\DoctrineObject;
 use Zend\Form\Element\Submit;
 use Zend\Form\Form;
-use Zend\InputFilter\Input;
-use Zend\InputFilter\InputFilter;
 use Zend\InputFilter\InputFilterProviderInterface;
 
 class RegisterForm extends Form implements InputFilterProviderInterface
 {
 
-    function __construct(ObjectManager $objectManager)
+    function __construct(EntityManager $entityManager)
     {
         parent::__construct('UserForm');
 
-        $this->setHydrator(new DoctrineObject($objectManager));
-        $userFieldset = new UserFieldset($objectManager);
+        $this->setHydrator(new DoctrineObject($entityManager));
+        $userFieldset = new UserFieldset($entityManager);
         $userFieldset->setUseAsBaseFieldset(true);
         $this->add($userFieldset);
 

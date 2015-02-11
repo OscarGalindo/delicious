@@ -8,19 +8,22 @@
 
 namespace User\Form;
 
-use Doctrine\Common\Persistence\ObjectManager;
+use Doctrine\ORM\EntityManager;
 use DoctrineModule\Stdlib\Hydrator\DoctrineObject;
 use User\Entity\User;
 use Zend\Form\Fieldset;
-use Zend\InputFilter\InputFilter;
 use Zend\InputFilter\InputFilterProviderInterface;
 
 class UserFieldset extends Fieldset implements InputFilterProviderInterface
 {
-    function __construct(ObjectManager $objectManager)
+    protected $entityManager;
+
+    function __construct(EntityManager $entityManager)
     {
         parent::__construct('UserFieldset');
-        $this->setHydrator(new DoctrineObject($objectManager))
+        $this->entityManager = $entityManager;
+
+        $this->setHydrator(new DoctrineObject($entityManager))
             ->setObject(new User());
 
         $this->add(
@@ -92,6 +95,7 @@ class UserFieldset extends Fieldset implements InputFilterProviderInterface
      */
     public function getInputFilterSpecification()
     {
+        $user = $this->entityManager->getRepository('User\Entity\User');
         return array(
             array(
                 'name' => 'username',
@@ -108,6 +112,13 @@ class UserFieldset extends Fieldset implements InputFilterProviderInterface
                             'min' => 3,
                             'max' => 50,
                         ),
+                    ),
+                    array(
+                        'name' => 'DoctrineModule\Validator\NoObjectExists',
+                        'options' => array(
+                            'object_repository' => $user,
+                            'fields' => 'username'
+                        )
                     ),
                 ),
             ),
@@ -126,6 +137,13 @@ class UserFieldset extends Fieldset implements InputFilterProviderInterface
                             'min' => 3,
                             'max' => 50,
                         ),
+                    ),
+                    array(
+                        'name' => 'DoctrineModule\Validator\NoObjectExists',
+                        'options' => array(
+                            'object_repository' => $user,
+                            'fields' => 'email'
+                        )
                     ),
                 ),
             )

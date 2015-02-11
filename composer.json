@@ -12,6 +12,7 @@
         "zendframework/zendframework": "2.3.*",
         "doctrine/doctrine-orm-module": "0.8.*",
         "zendframework/zftool": "dev-master",
-        "ghislainf/zf2-whoops": "dev-master"
+        "ghislainf/zf2-whoops": "dev-master",
+        "zendframework/zend-developer-tools": "dev-master"
     }
 }

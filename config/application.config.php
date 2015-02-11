@@ -3,6 +3,7 @@
 return array(
     'modules' => array(
         'Zf2Whoops',
+        'ZendDeveloperTools',
         'Application',
         'DoctrineModule',
         'DoctrineORMModule',

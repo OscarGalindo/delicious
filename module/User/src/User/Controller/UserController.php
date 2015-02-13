@@ -64,7 +64,7 @@ class UserController extends AbstractActionController
     }
 
     /**
-     * Formulario de login
+     * Formulario de login/Auth
      *
      * @return ViewModel
      */

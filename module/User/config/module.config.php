@@ -73,10 +73,21 @@ return array(
                 ),
             ),
         ),
+        'authentication' => array(
+            'orm_default' => array(
+                'object_manager' => 'Doctrine\ORM\EntityManager',
+                'identity_class' => 'User\Entity\User',
+                'identity_property' => 'email',
+                'credential_property' => 'password',
+            ),
+        ),
     ),
     'service_manager' => array(
         'invokables' => array(
             'RegisterForm' => 'User\Form\RegisterForm',
+        ),
+        'factories' => array(
+            'UserAuthentication' => 'User\Factory\AuthenticationServiceFactory',
         ),
     ),
     'controllers' => array(

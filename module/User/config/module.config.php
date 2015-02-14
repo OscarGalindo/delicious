@@ -23,38 +23,38 @@ return array(
                             ),
                         ),
                     ),
-                ),
-            ),
-            'user_register' => array(
-                'type' => 'Zend\Mvc\Router\Http\Literal',
-                'options' => array(
-                    'route' => '/register',
-                    'defaults' => array(
-                        'controller' => 'UserControllerFactory',
-                        'action' => 'register',
+                    'register' => array(
+                        'type' => 'Literal',
+                        'options' => array(
+                            'route' => '/register',
+                            'defaults' => array(
+                                'controller' => 'UserControllerFactory',
+                                'action' => 'register',
+                            ),
+                        ),
                     ),
-                ),
-            ),
-            'user_login' => array(
-                'type' => 'Zend\Mvc\Router\Http\Literal',
-                'options' => array(
-                    'route' => '/login',
-                    'defaults' => array(
-                        'controller' => 'UserControllerFactory',
-                        'action' => 'login',
+                    'login' => array(
+                        'type' => 'Literal',
+                        'options' => array(
+                            'route' => '/login',
+                            'defaults' => array(
+                                'controller' => 'UserControllerFactory',
+                                'action' => 'login',
+                            ),
+                        ),
                     ),
-                ),
-            ),
-            'user_logout' => array(
-                'type' => 'Segment',
-                'options' => array(
-                    'route' => '/logout[/:redirect_url]',
-                    'constraints' => array(
-                        'redirect_url' => '.*?'
-                    ),
-                    'defaults' => array(
-                        'controller' => 'UserControllerFactory',
-                        'action' => 'logout',
+                    'logout' => array(
+                        'type' => 'Segment',
+                        'options' => array(
+                            'route' => '/logout[/:redirect_url]',
+                            'constraints' => array(
+                                'redirect_url' => '.*?'
+                            ),
+                            'defaults' => array(
+                                'controller' => 'UserControllerFactory',
+                                'action' => 'logout',
+                            ),
+                        ),
                     ),
                 ),
             ),

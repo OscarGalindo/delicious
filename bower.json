@@ -22,7 +22,8 @@
   "dependencies": {
     "jquery": "~2.1.3",
     "fontawesome": "~4.3.0",
-    "bootswatch": "~3.3.2",
-    "bootstrap": "~3.3.2"
+    "bootstrap": "~3.3.2",
+    "custombox": "~2.2.5",
+    "bootswatch": "e5a82f67ec16aecd9b19d7f296dc3094f9ba08ee"
   }
 }

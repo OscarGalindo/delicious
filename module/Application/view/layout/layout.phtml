@@ -1,66 +1,54 @@
 <?php echo $this->doctype(); ?>
 
 <html lang="en">
-    <head>
-        <meta charset="utf-8">
-        <?php echo $this->headTitle('ZF2 '. $this->translate('Skeleton Application'))->setSeparator(' - ')->setAutoEscape(false) ?>
+<head>
+    <meta charset="utf-8">
+    <?php echo $this->headTitle('ZF2 ' . $this->translate('Skeleton Application'))->setSeparator(' - ')->setAutoEscape(false) ?>
 
-        <?php echo $this->headMeta()
-                        ->appendName('viewport', 'width=device-width, initial-scale=1.0')
-                        ->appendHttpEquiv('X-UA-Compatible', 'IE=edge')
-        ?>
+    <?php echo $this->headMeta()
+        ->appendName('viewport', 'width=device-width, initial-scale=1.0')
+        ->appendHttpEquiv('X-UA-Compatible', 'IE=edge')
+    ?>
 
-        <!-- Le styles -->
-        <?php echo $this->headLink(array('rel' => 'shortcut icon', 'type' => 'image/vnd.microsoft.icon', 'href' => $this->basePath() . '/img/favicon.ico'))
-                        ->prependStylesheet($this->basePath() . '/css/delicious.css')
-                        ->prependStylesheet($this->basePath() . '/bower_components/bootswatch/paper/bootstrap.min.css')
-                        ->prependStylesheet($this->basePath() . '/bower_components/fontawesome/css/font-awesome.min.css')
-        ?>
-    </head>
-    <body>
-        <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
-            <div class="container">
-                <div class="navbar-header">
-                    <a class="navbar-brand" href="<?php echo $this->basePath('/') ?>">Delicious</a>
-                </div>
-                <div class="collapse navbar-collapse">
-                    <?php echo $this->navigation('navigation')
-                        ->menu()
-                        ->setPartial('navigation/navigation.phtml')->__toString();
-                    ?>
-                </div><!--/.nav-collapse -->
-            </div>
-        </nav>
-        <div class="container">
-
-            <div class="modal fade" id="loginModal" role="dialog" aria-labelledby="LoginLabel" aria-hidden="true">
-                <div class="modal-dialog">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                            <h4 class="modal-title">Login</h4>
-                        </div>
-                        <div class="modal-body">
-                            <p>One fine body&hellip;</p>
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                            <button type="button" class="btn btn-primary">Save changes</button>
-                        </div>
-                    </div><!-- /.modal-content -->
-                </div><!-- /.modal-dialog -->
-            </div><!-- /.modal -->
-
-            <?php echo $this->content; ?>
-        </div> <!-- /container -->
-        <hr>
-        <footer>
-            <p style="text-align: center">&copy; 2014 - <?php echo date('Y') ?> Delicious. <?php echo $this->translate('All rights reserved.') ?></p>
-        </footer>
-        <?php echo $this->inlineScript() ?>
-        <?php echo $this->headScript()
-                        ->appendFile($this->basePath() . '/bower_components/jquery/dist/jquery.min.js')
-                        ->appendFile($this->basePath() . '/bower_components/bootstrap/dist/js/bootstrap.min.js')
-                        ->appendFile($this->basePath() . '/js/delicious.js'); ?>
-    </body>
+    <!-- Le styles -->
+    <?php echo $this->headLink(array('rel' => 'shortcut icon', 'type' => 'image/vnd.microsoft.icon', 'href' => $this->basePath() . '/img/favicon.ico'))
+        ->prependStylesheet($this->basePath() . '/bower_components/bootswatch/paper/bootstrap.min.css')
+        ->prependStylesheet($this->basePath() . '/bower_components/fontawesome/css/font-awesome.min.css')
+        ->prependStylesheet($this->basePath() . '/bower_components/custombox/dist/custombox.min.css')
+        ->prependStylesheet($this->basePath() . '/css/delicious.css')
+        ->prependStylesheet($this->basePath() . '/css/modal.login.css')
+    ?>
+</head>
+<body>
+<nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+    <div class="container">
+        <div class="navbar-header">
+            <a class="navbar-brand" href="<?php echo $this->basePath('/') ?>">Delicious</a>
+        </div>
+        <div class="collapse navbar-collapse">
+            <?php echo $this->navigation('navigation')
+                ->menu()
+                ->setPartial('navigation/navigation.phtml')->__toString();
+            ?>
+        </div>
+        <!--/.nav-collapse -->
+    </div>
+</nav>
+<div class="container">
+    <?php echo $this->content; ?>
+</div>
+<!-- /container -->
+<hr>
+<footer>
+    <p style="text-align: center">&copy; 2014 - <?php echo date('Y') ?>
+        Delicious. <?php echo $this->translate('All rights reserved.') ?></p>
+</footer>
+<?php echo $this->inlineScript() ?>
+<?php echo $this->headScript()
+    ->appendFile($this->basePath() . '/bower_components/jquery/dist/jquery.min.js')
+    ->appendFile($this->basePath() . '/bower_components/bootstrap/dist/js/bootstrap.min.js')
+    ->appendFile($this->basePath() . '/bower_components/custombox/dist/custombox.min.js')
+    ->appendFile($this->basePath() . '/bower_components/custombox/dist/legacy.min.js')
+    ->appendFile($this->basePath() . '/js/delicious.js'); ?>
+</body>
 </html>

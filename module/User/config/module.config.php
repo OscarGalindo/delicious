@@ -98,7 +98,10 @@ return array(
     'view_manager' => array(
         'template_path_stack' => array(
             'currency' => __DIR__ . '/../view',
-        )
+        ),
+        'strategies' => array(
+            'ViewJsonStrategy',
+        ),
     ),
     'view_helpers' => array(
         'invokables' => array(

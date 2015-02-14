@@ -8,6 +8,7 @@ use User\Entity\User;
 use User\Form\RegisterForm;
 use Zend\Form\Form;
 use Zend\Mvc\Controller\AbstractActionController;
+use Zend\View\Model\JsonModel;
 use Zend\View\Model\ViewModel;
 
 class UserController extends AbstractActionController
@@ -70,7 +71,26 @@ class UserController extends AbstractActionController
      */
     public function loginAction()
     {
-        return new ViewModel();
+        $result = ['status' => false, 'message' => 'Authentication failed. Please try again.'];
+        $data = $this->getRequest()->getPost();
+
+        $authService = $this->getServiceLocator()->get('UserAuthenticationServiceFactory');
+
+        $adapter = $authService->getAdapter();
+        $adapter->setIdentityValue($data['email']);
+        $adapter->setCredentialValue($data['password']);
+        $authResult = $authService->authenticate();
+
+        if ($authResult->isValid()) {
+            $user = $authResult->getIdentity();
+            $result = [
+                'status' => true,
+                'id' => $user->getId(),
+                'username' => $user->getUsername()
+            ];
+        }
+
+        return new JsonModel($result);
     }
 
     /**
@@ -90,7 +110,7 @@ class UserController extends AbstractActionController
      */
     public function profileAction()
     {
-        $id   = $this->params()->fromRoute('id_user');
+        $id = $this->params()->fromRoute('id_user');
         $user = $this->entityManager->getRepository('User\Entity\User');
 
         return [

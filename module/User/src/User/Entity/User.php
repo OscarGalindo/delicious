@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * User
  *
- * @ORM\Table(name="User", uniqueConstraints={@ORM\UniqueConstraint(name="username", columns={"username"}), @ORM\UniqueConstraint(name="id", columns={"id"}), @ORM\UniqueConstraint(name="email", columns={"email"})}, indexes={@ORM\Index(name="FKUser708634", columns={"role"}), @ORM\Index(name="FKUser803907", columns={"city"})})
+ * @ORM\Table(name="User", uniqueConstraints={@ORM\UniqueConstraint(name="username", columns={"username"}), @ORM\UniqueConstraint(name="id", columns={"id"}), @ORM\UniqueConstraint(name="email", columns={"email"})})
  * @ORM\Entity
  */
 class User
@@ -48,34 +48,6 @@ class User
      * @ORM\Column(name="name", type="string", length=255, nullable=false)
      */
     private $name;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="lastname", type="string", length=255, nullable=false)
-     */
-    private $lastname;
-
-    /**
-     * @var Role
-     *
-     * @ORM\ManyToOne(targetEntity="User\Entity\Role")
-     * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="role", referencedColumnName="id")
-     * })
-     */
-    private $role;
-
-    /**
-     * @var City
-     *
-     * @ORM\ManyToOne(targetEntity="User\Entity\City")
-     * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="city", referencedColumnName="id")
-     * })
-     */
-    private $city;
-
 
     /**
      * Get id
@@ -177,74 +149,5 @@ class User
     public function getName()
     {
         return $this->name;
-    }
-
-    /**
-     * Set lastname
-     *
-     * @param string $lastname
-     * @return User
-     */
-    public function setLastname($lastname)
-    {
-        $this->lastname = $lastname;
-
-        return $this;
-    }
-
-    /**
-     * Get lastname
-     *
-     * @return string
-     */
-    public function getLastname()
-    {
-        return $this->lastname;
-    }
-
-    /**
-     * Set role
-     *
-     * @param Role $role
-     * @return User
-     */
-    public function setRole(Role $role = null)
-    {
-        $this->role = $role;
-
-        return $this;
-    }
-
-    /**
-     * Get role
-     *
-     * @return Role
-     */
-    public function getRole()
-    {
-        return $this->role;
-    }
-
-    /**
-     * Set city
-     *
-     * @param City $city
-     * @return User
-     */
-    public function setCity(City $city = null)
-    {
-        $this->city = $city;
-
-        return $this;
-    }
-
-    /**
-     * Get city
-     *
-     * @return City
-     */
-    public function getCity()
-    {
-        return $this->city;
     }
 }

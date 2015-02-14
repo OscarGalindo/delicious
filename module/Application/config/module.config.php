@@ -52,16 +52,6 @@ return array(
                 'icon' => 'fa fa-home',
             ),
             array(
-                'label' => 'Users',
-                'route' => 'user',
-                'icon' => 'fa fa-list',
-            ),
-            array(
-                'label' => 'Register',
-                'route' => 'user_register',
-                'icon' => 'fa fa-sign-in',
-            ),
-            array(
                 'label' => 'Bookmarks Index',
                 'route' => 'bookmark',
                 'icon' => 'fa fa-star',

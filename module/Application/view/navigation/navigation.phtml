@@ -1,4 +1,4 @@
-<ul class="nav navbar-nav">
+<ul class="nav navbar-nav navbar-left">
     <?php foreach ($container as $page): ?>
         <?php if (!$this->navigation()->accept($page)) continue; ?>
         <li <?php if ($page->isActive()) echo 'class="active"' ?>>
@@ -11,3 +11,7 @@
         </li>
     <?php endforeach ?>
 </ul>
+<form class="navbar-nav navbar-form navbar-right" role="search">
+    <button type="submit" class="btn btn-success">Sign In</button>
+    <button type="submit" class="btn btn-default">Register</button>
+</form>

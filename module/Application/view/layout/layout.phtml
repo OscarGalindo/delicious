@@ -12,9 +12,9 @@
 
         <!-- Le styles -->
         <?php echo $this->headLink(array('rel' => 'shortcut icon', 'type' => 'image/vnd.microsoft.icon', 'href' => $this->basePath() . '/img/favicon.ico'))
-                        ->prependStylesheet($this->basePath() . '/css/style.css')
-                        ->prependStylesheet($this->basePath() . '/css/paper.min.css')
-                        ->prependStylesheet($this->basePath() . '/css/font-awesome.min.css')
+                        ->prependStylesheet($this->basePath() . '/css/delicious.css')
+                        ->prependStylesheet($this->basePath() . '/bower_components/bootswatch/paper/bootstrap.min.css')
+                        ->prependStylesheet($this->basePath() . '/bower_components/fontawesome/css/font-awesome.min.css')
         ?>
     </head>
     <body>
@@ -32,6 +32,25 @@
             </div>
         </nav>
         <div class="container">
+
+            <div class="modal fade" id="loginModal" role="dialog" aria-labelledby="LoginLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                            <h4 class="modal-title">Login</h4>
+                        </div>
+                        <div class="modal-body">
+                            <p>One fine body&hellip;</p>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                            <button type="button" class="btn btn-primary">Save changes</button>
+                        </div>
+                    </div><!-- /.modal-content -->
+                </div><!-- /.modal-dialog -->
+            </div><!-- /.modal -->
+
             <?php echo $this->content; ?>
         </div> <!-- /container -->
         <hr>
@@ -39,5 +58,9 @@
             <p style="text-align: center">&copy; 2014 - <?php echo date('Y') ?> Delicious. <?php echo $this->translate('All rights reserved.') ?></p>
         </footer>
         <?php echo $this->inlineScript() ?>
+        <?php echo $this->headScript()
+                        ->appendFile($this->basePath() . '/bower_components/jquery/dist/jquery.min.js')
+                        ->appendFile($this->basePath() . '/bower_components/bootstrap/dist/js/bootstrap.min.js')
+                        ->appendFile($this->basePath() . '/js/delicious.js'); ?>
     </body>
 </html>

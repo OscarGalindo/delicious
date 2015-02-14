@@ -87,7 +87,7 @@ return array(
             'RegisterForm' => 'User\Form\RegisterForm',
         ),
         'factories' => array(
-            'UserAuthentication' => 'User\Factory\AuthenticationServiceFactory',
+            'UserAuthenticationServiceFactory' => 'User\Factory\UserAuthenticationServiceFactory',
         ),
     ),
     'controllers' => array(

@@ -12,7 +12,7 @@ namespace User\Factory;
 use Zend\ServiceManager\FactoryInterface;
 use Zend\ServiceManager\ServiceLocatorInterface;
 
-class AuthenticationServiceFactory implements FactoryInterface
+class UserAuthenticationServiceFactory implements FactoryInterface
 {
     /**
      * Create service

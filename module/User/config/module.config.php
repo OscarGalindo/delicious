@@ -83,6 +83,9 @@ return array(
         ),
     ),
     'service_manager' => array(
+        'aliases' => array(
+            'Zend\Authentication\AuthenticationService' => 'UserAuthenticationServiceFactory',
+        ),
         'invokables' => array(
             'RegisterForm' => 'User\Form\RegisterForm',
         ),

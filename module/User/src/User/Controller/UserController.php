@@ -3,10 +3,9 @@
 namespace User\Controller;
 
 use Doctrine\Common\Persistence\ObjectManager;
-use Doctrine\ORM\EntityRepository;
 use User\Entity\User;
 use User\Form\RegisterForm;
-use Zend\Form\Form;
+use Zend\Authentication\AuthenticationService;
 use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\JsonModel;
 use Zend\View\Model\ViewModel;
@@ -19,11 +18,30 @@ class UserController extends AbstractActionController
     protected $entityManager;
 
     /**
-     * @param ObjectManager $entityManager
+     * @var AuthenticationService
      */
-    public function __construct(ObjectManager $entityManager)
+    protected $auth;
+
+    /**
+     * @var null|\Zend\Authentication\Adapter\AdapterInterface
+     */
+    protected $adapter;
+
+    /**
+     * @var \Zend\Authentication\Storage\StorageInterface
+     */
+    protected $storage;
+
+    /**
+     * @param ObjectManager $entityManager
+     * @param AuthenticationService $auth
+     */
+    public function __construct(ObjectManager $entityManager, AuthenticationService $auth)
     {
         $this->entityManager = $entityManager;
+        $this->auth = $auth;
+        $this->adapter = $this->auth->getAdapter();
+        $this->storage = $this->auth->getStorage();
     }
 
     /**
@@ -74,15 +92,17 @@ class UserController extends AbstractActionController
         $result = ['status' => false, 'message' => 'Authentication failed. Please try again.'];
         $data = $this->getRequest()->getPost();
 
-        $authService = $this->getServiceLocator()->get('UserAuthenticationServiceFactory');
+        $this->adapter
+            ->setIdentity($data['email'])
+            ->setCredentialValue($data['password']);
 
-        $adapter = $authService->getAdapter();
-        $adapter->setIdentityValue($data['email']);
-        $adapter->setCredentialValue($data['password']);
-        $authResult = $authService->authenticate();
+        $authResult = $this->auth->authenticate();
 
         if ($authResult->isValid()) {
             $user = $authResult->getIdentity();
+            if ($data['rememberme'] == 1)
+                $this->storage->setRememberMe(1);
+
             $result = [
                 'status' => true,
                 'id' => $user->getId(),

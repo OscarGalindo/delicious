@@ -79,6 +79,9 @@ return array(
                 'identity_class' => 'User\Entity\User',
                 'identity_property' => 'email',
                 'credential_property' => 'password',
+//                'credential_callable' => function (\User\Entity\User $user, $passwordGiven) {
+//                  return password_hash($passwordGiven, PASSWORD_DEFAULT) == $user->getPassword();
+//                },
             ),
         ),
     ),
@@ -96,6 +99,11 @@ return array(
     'controllers' => array(
         'factories' => array(
             'UserControllerFactory' => 'User\Factory\Controller\UserControllerFactory',
+        ),
+    ),
+    'controller_plugins' => array(
+        'factories' => array(
+            'UserAuthentication' => 'User\Factory\Controller\Plugin\UserAuthenticationPluginFactory',
         ),
     ),
     'view_manager' => array(

@@ -61,6 +61,13 @@ class UserController extends AbstractActionController
    */
   public function registerAction()
   {
+    /* @var $userPlugin UserAuthenticationPlugin */
+    $userPlugin = $this->UserAuthentication();
+
+    if ($userPlugin->hasIdentity()) {
+      return $this->redirect()->toRoute('/');
+    }
+    
     $createUserForm = new RegisterForm($this->entityManager);
 
     $user = new User();
@@ -89,6 +96,11 @@ class UserController extends AbstractActionController
   {
     /* @var $userPlugin UserAuthenticationPlugin */
     $userPlugin = $this->UserAuthentication();
+
+    if ($userPlugin->hasIdentity()) {
+      return $this->redirect()->toRoute('/');
+    }
+
     $result = ['status' => false, 'message' => 'Authentication failed. Please try again.'];
     $data = $this->getRequest()->getPost();
 

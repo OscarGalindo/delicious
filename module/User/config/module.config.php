@@ -72,6 +72,17 @@ return array(
                     'User\Entity' => 'users_entities',
                 ),
             ),
+//          Configuración generica
+//            'orm_driver' => array(
+//                'class' => 'Doctrine\ORM\Mapping\Driver\AnnotationDriver',
+//                'cache' => 'array',
+//                'paths' => array(__DIR__ . '/../src/' . __NAMESPACE__ . '/Entity')
+//            ),
+//            'orm_default' => array(
+//                'drivers' => array(
+//                    __NAMESPACE__ . '\Entity' => 'orm_driver'
+//                )
+//            ),
         ),
         'authentication' => array(
             'orm_default' => array(
@@ -94,6 +105,7 @@ return array(
         ),
         'factories' => array(
             'UserAuthenticationServiceFactory' => 'User\Factory\UserAuthenticationServiceFactory',
+            'RegisterFormFactory' => 'User\Factory\Form\RegisterFormFactory',
         ),
     ),
     'controllers' => array(

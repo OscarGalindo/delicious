@@ -4,7 +4,6 @@ namespace User\Controller;
 
 use Doctrine\Common\Persistence\ObjectManager;
 use User\Controller\Plugin\UserAuthenticationPlugin;
-use User\Entity\User;
 use User\Form\RegisterForm;
 use Zend\Authentication\AuthenticationService;
 use Zend\Mvc\Controller\AbstractActionController;
@@ -34,12 +33,18 @@ class UserController extends AbstractActionController
   protected $storage;
 
   /**
-   * @param ObjectManager $entityManager
-   * @param AuthenticationService $auth
+   * @var RegisterForm
    */
-  public function __construct(ObjectManager $entityManager)
+  protected $registerForm;
+
+  /**
+   * @param ObjectManager $entityManager
+   * @param RegisterForm $registerForm
+   */
+  public function __construct(ObjectManager $entityManager, RegisterForm $registerForm)
   {
     $this->entityManager = $entityManager;
+    $this->registerForm = $registerForm;
   }
 
   /**
@@ -67,16 +72,15 @@ class UserController extends AbstractActionController
     if ($userPlugin->hasIdentity()) {
       return $this->redirect()->toRoute('/');
     }
-    
-    $createUserForm = new RegisterForm($this->entityManager);
 
-    $user = new User();
-    $createUserForm->bind($user);
 
     if ($this->request->isPost()) {
-      $createUserForm->setData($this->request->getPost());
+      $user = $this->entityManager->getRepository('User\Entity\User');
+      $this->registerForm->bind($user);
 
-      if ($createUserForm->isValid()) {
+      $this->registerForm->setData($this->request->getPost());
+
+      if ($this->registerForm->isValid()) {
         $this->entityManager->persist($user);
         $this->entityManager->flush();
         $id = $user->getId();
@@ -84,7 +88,7 @@ class UserController extends AbstractActionController
       }
     }
 
-    return array('createForm' => $createUserForm);
+    return array('createForm' => $this->registerForm);
   }
 
   /**

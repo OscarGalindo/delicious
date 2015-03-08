@@ -9,7 +9,6 @@
 namespace User\Form;
 
 use Doctrine\ORM\EntityManager;
-use DoctrineModule\Stdlib\Hydrator\DoctrineObject;
 use Zend\Form\Element\Submit;
 use Zend\Form\Form;
 use Zend\InputFilter\InputFilterProviderInterface;
@@ -21,7 +20,6 @@ class RegisterForm extends Form implements InputFilterProviderInterface
     {
         parent::__construct('UserForm');
 
-        $this->setHydrator(new DoctrineObject($entityManager));
         $userFieldset = new UserFieldset($entityManager);
         $userFieldset->setUseAsBaseFieldset(true);
         $this->add($userFieldset);

@@ -62,27 +62,16 @@ return array(
     ),
     'doctrine' => array(
         'driver' => array(
-            'users_entities' => array(
+            'orm_driver' => array(
                 'class' => 'Doctrine\ORM\Mapping\Driver\AnnotationDriver',
                 'cache' => 'array',
-                'paths' => array(__DIR__ . '/../src/User/Entity'),
+                'paths' => array(__DIR__ . '/../src/' . __NAMESPACE__ . '/Entity')
             ),
             'orm_default' => array(
                 'drivers' => array(
-                    'User\Entity' => 'users_entities',
-                ),
+                    __NAMESPACE__ . '\Entity' => 'orm_driver'
+                )
             ),
-//          Configuración generica
-//            'orm_driver' => array(
-//                'class' => 'Doctrine\ORM\Mapping\Driver\AnnotationDriver',
-//                'cache' => 'array',
-//                'paths' => array(__DIR__ . '/../src/' . __NAMESPACE__ . '/Entity')
-//            ),
-//            'orm_default' => array(
-//                'drivers' => array(
-//                    __NAMESPACE__ . '\Entity' => 'orm_driver'
-//                )
-//            ),
         ),
         'authentication' => array(
             'orm_default' => array(

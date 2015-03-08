@@ -73,10 +73,10 @@ class UserController extends AbstractActionController
       return $this->redirect()->toRoute('/');
     }
 
+    $user = $this->entityManager->getRepository('User\Entity\User');
+    $this->registerForm->bind($user);
 
     if ($this->request->isPost()) {
-      $user = $this->entityManager->getRepository('User\Entity\User');
-      $this->registerForm->bind($user);
 
       $this->registerForm->setData($this->request->getPost());
 

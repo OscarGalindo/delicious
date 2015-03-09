@@ -4,10 +4,10 @@ return array(
     'modules' => array(
         'Zf2Whoops',
         'ZendDeveloperTools',
-        'Application',
         'DoctrineModule',
         'DoctrineORMModule',
-        'User'
+        'Application',
+        'User',
     ),
     'module_listener_options' => array(
         'module_paths' => array(

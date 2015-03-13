@@ -8,6 +8,7 @@
 
 namespace User\Factory\Form;
 
+use Doctrine\ORM\EntityManager;
 use User\Form\RegisterForm;
 use Zend\ServiceManager\FactoryInterface;
 use Zend\ServiceManager\ServiceLocatorInterface;
@@ -22,8 +23,9 @@ class RegisterFormFactory implements FactoryInterface {
    */
   public function createService(ServiceLocatorInterface $serviceManager)
   {
-    $model = $serviceManager->get('Doctrine\ORM\EntityManager');
-    $form = new RegisterForm($model);
+    /** @var EntityManager $entityManager */
+    $entityManager = $serviceManager->get('Doctrine\ORM\EntityManager');
+    $form = new RegisterForm($entityManager);
 
     return $form;
   }

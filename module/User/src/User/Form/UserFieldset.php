@@ -22,68 +22,71 @@ class UserFieldset extends Fieldset implements InputFilterProviderInterface
     parent::__construct('UserFieldset');
     $this->entityManager = $entityManager;
 
+    $user = $this->entityManager->getRepository('User\Entity\User');
+    $hydrator = new DoctrineHydrator($entityManager);
+
     $this
-        ->setHydrator(new DoctrineHydrator($entityManager))
-        ->setObject($this->entityManager->getRepository('User\Entity\User'));
+      ->setHydrator($hydrator)
+      ->setObject($user);
 
     $this->add(
-        array(
-            'type' => 'Zend\Form\Element\Hidden',
-            'name' => 'id'
-        )
+      array(
+        'type' => 'Zend\Form\Element\Hidden',
+        'name' => 'id'
+      )
     );
 
     $this->add(
-        array(
-            'name' => 'username',
-            'options' => array(
-                'label' => 'Username',
-            ),
-            'attributes' => array(
-                'class' => 'form-control',
-                'type' => 'text',
-                'placeholder' => 'Username',
-            ),
-        )
+      array(
+        'name' => 'username',
+        'options' => array(
+          'label' => 'Username',
+        ),
+        'attributes' => array(
+          'class' => 'form-control',
+          'type' => 'text',
+          'placeholder' => 'Username',
+        ),
+      )
     );
     $this->add(
-        array(
-            'name' => 'name',
-            'options' => array(
-                'label' => 'Name',
-            ),
-            'attributes' => array(
-                'class' => 'form-control',
-                'type' => 'text',
-                'placeholder' => 'Name',
-            ),
-        )
+      array(
+        'name' => 'name',
+        'options' => array(
+          'label' => 'Name',
+        ),
+        'attributes' => array(
+          'class' => 'form-control',
+          'type' => 'text',
+          'placeholder' => 'Name',
+        ),
+      )
     );
     $this->add(
-        array(
-            'name' => 'email',
-            'options' => array(
-                'label' => 'Email',
-            ),
-            'attributes' => array(
-                'type' => 'text',
-                'class' => 'form-control',
-                'placeholder' => 'Email',
-            ),
-        )
+      array(
+        'name' => 'email',
+        'options' => array(
+          'label' => 'Email',
+        ),
+        'attributes' => array(
+          'type' => 'text',
+          'class' => 'form-control',
+          'placeholder' => 'Email',
+        ),
+      )
     );
     $this->add(
-        array(
-            'name' => 'password',
-            'options' => array(
-                'label' => 'Password',
-            ),
-            'attributes' => array(
-                'type' => 'password',
-                'class' => 'form-control',
-                'placeholder' => 'Password',
-            ),
-        )
+      array(
+        'name' => 'password',
+        'options' => array(
+          'label' => 'Password',
+        ),
+        'attributes' => array(
+          'type' => 'password',
+          'class' => 'form-control',
+          'placeholder' => 'Password',
+        ),
+      )
     );
   }
 
@@ -97,56 +100,56 @@ class UserFieldset extends Fieldset implements InputFilterProviderInterface
   {
     $user = $this->entityManager->getRepository('User\Entity\User');
     return array(
-        array(
-            'name' => 'username',
-            'required' => true,
-            'filters' => array(
-                array('name' => 'StripTags'),
-                array('name' => 'StringTrim'),
-            ),
-            'validators' => array(
-                array(
-                    'name' => 'StringLength',
-                    'options' => array(
-                        'encoding' => 'UTF-8',
-                        'min' => 3,
-                        'max' => 50,
-                    ),
-                ),
-                array(
-                    'name' => 'DoctrineModule\Validator\NoObjectExists',
-                    'options' => array(
-                        'object_repository' => $user,
-                        'fields' => 'username'
-                    )
-                ),
-            ),
+      array(
+        'name' => 'username',
+        'required' => true,
+        'filters' => array(
+          array('name' => 'StripTags'),
+          array('name' => 'StringTrim'),
         ),
-        array(
-            'name' => 'email',
-            'required' => true,
-            'filters' => array(
-                array('name' => 'StripTags'),
-                array('name' => 'StringTrim'),
+        'validators' => array(
+          array(
+            'name' => 'StringLength',
+            'options' => array(
+              'encoding' => 'UTF-8',
+              'min' => 3,
+              'max' => 50,
             ),
-            'validators' => array(
-                array(
-                    'name' => 'EmailAddress',
-                    'options' => array(
-                        'encoding' => 'UTF-8',
-                        'min' => 3,
-                        'max' => 50,
-                    ),
-                ),
-                array(
-                    'name' => 'DoctrineModule\Validator\NoObjectExists',
-                    'options' => array(
-                        'object_repository' => $user,
-                        'fields' => 'email'
-                    )
-                ),
+          ),
+          array(
+            'name' => 'DoctrineModule\Validator\NoObjectExists',
+            'options' => array(
+              'object_repository' => $user,
+              'fields' => 'username'
+            )
+          ),
+        ),
+      ),
+      array(
+        'name' => 'email',
+        'required' => true,
+        'filters' => array(
+          array('name' => 'StripTags'),
+          array('name' => 'StringTrim'),
+        ),
+        'validators' => array(
+          array(
+            'name' => 'EmailAddress',
+            'options' => array(
+              'encoding' => 'UTF-8',
+              'min' => 3,
+              'max' => 50,
             ),
-        )
+          ),
+          array(
+            'name' => 'DoctrineModule\Validator\NoObjectExists',
+            'options' => array(
+              'object_repository' => $user,
+              'fields' => 'email'
+            )
+          ),
+        ),
+      )
     );
   }
 }

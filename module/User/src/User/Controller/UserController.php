@@ -18,21 +18,6 @@ class UserController extends AbstractActionController
   protected $entityManager;
 
   /**
-   * @var AuthenticationService
-   */
-  protected $auth;
-
-  /**
-   * @var null|\Zend\Authentication\Adapter\AdapterInterface
-   */
-  protected $adapter;
-
-  /**
-   * @var \Zend\Authentication\Storage\StorageInterface
-   */
-  protected $storage;
-
-  /**
    * @var RegisterForm
    */
   protected $registerForm;
@@ -55,7 +40,7 @@ class UserController extends AbstractActionController
   public function indexAction()
   {
     return [
-        'users' => $this->entityManager->getRepository('User\Entity\User')->findAll()
+      'users' => $this->entityManager->getRepository('User\Entity\User')->findAll()
     ];
   }
 
@@ -73,14 +58,12 @@ class UserController extends AbstractActionController
       return $this->redirect()->toRoute('/');
     }
 
-    $user = $this->entityManager->getRepository('User\Entity\User');
-    $this->registerForm->bind($user);
-
     if ($this->request->isPost()) {
-
       $this->registerForm->setData($this->request->getPost());
-
       if ($this->registerForm->isValid()) {
+        $user = $this->entityManager->getRepository('User\Entity\User');
+        $this->registerForm->bind($user);
+
         $this->entityManager->persist($user);
         $this->entityManager->flush();
         $id = $user->getId();
@@ -110,8 +93,8 @@ class UserController extends AbstractActionController
 
     $adapter = $userPlugin->getAuthAdapter();
     $adapter
-        ->setIdentity($data['email'])
-        ->setCredential($data['password']);
+      ->setIdentity($data['email'])
+      ->setCredential($data['password']);
 
     $authResult = $adapter->authenticate();
 
@@ -119,9 +102,9 @@ class UserController extends AbstractActionController
       $user = $authResult->getIdentity();
 
       $result = [
-          'status' => true,
-          'id' => $user->getId(),
-          'username' => $user->getUsername()
+        'status' => true,
+        'id' => $user->getId(),
+        'username' => $user->getUsername()
       ];
     }
 
@@ -149,7 +132,7 @@ class UserController extends AbstractActionController
     $user = $this->entityManager->getRepository('User\Entity\User');
 
     return [
-        'user' => $user->find($id)
+      'user' => $user->find($id)
     ];
   }
 

@@ -24,12 +24,34 @@ class Calculadora {
   private $op2;
 
   /**
-   * @param $op1
-   * @param $op2
+   * @return int
    */
-  function __construct($op1, $op2)
+  public function getOp1()
+  {
+    return $this->op1;
+  }
+
+  /**
+   * @param int $op1
+   */
+  public function setOp1($op1)
   {
     $this->op1 = $op1;
+  }
+
+  /**
+   * @return int
+   */
+  public function getOp2()
+  {
+    return $this->op2;
+  }
+
+  /**
+   * @param int $op2
+   */
+  public function setOp2($op2)
+  {
     $this->op2 = $op2;
   }
 

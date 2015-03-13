@@ -33,11 +33,13 @@ class CalculadoraForm extends Form
 
     $submit = new Submit();
     $submit->setAttributes(array(
-        'class' => 'btn btn-success',
+        'name' => 'submit',
         'type' => 'submit',
-        'value' => $this->getAction()
+        'class' => 'btn btn-success',
+        'value' => 'Calcular'
       )
     );
+    $this->add($submit);
   }
 
   /**
@@ -46,13 +48,5 @@ class CalculadoraForm extends Form
   public function setAction($action)
   {
     $this->action = $action;
-  }
-
-  /**
-   * @return string
-   */
-  private function getAction()
-  {
-    return $this->action;
   }
 }

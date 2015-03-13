@@ -1,5 +1,15 @@
-Module: Calculadora
-Controller: Calculadora
-Action: Suma
+<?php
 
-<?php echo $this->saludo;
+$title = 'Suma';
+$this->headTitle($title);
+?>
+<h1><?php echo $this->escapeHtml($title); ?></h1>
+<?php
+$this->form->setAttribute('action', $this->url('calculadora/suma'));
+$this->form->prepare();
+
+echo $this->form($this->form);
+
+if($this->resultado) {
+  echo 'El resultado es ' . $this->resultado;
+}

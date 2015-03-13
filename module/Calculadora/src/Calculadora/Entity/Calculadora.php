@@ -6,7 +6,7 @@
  * Time: 18:48
  */
 
-namespace Calculadora\Entity\Calculadora;
+namespace Calculadora\Entity;
 
 /**
  * Class Calculadora

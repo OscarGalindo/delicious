@@ -21,6 +21,20 @@ class CalculadoraController extends AbstractActionController
     return [];
   }
 
+  public function calcularAction()
+  {
+    /** @var Request $request */
+    $request = $this->request;
+    $action = $this->params('action');
+
+    if ($request->isPost()) {
+      return ['resultado' => 'Resultado inside'];
+    }
+
+    $this->calculadoraForm->setAction('suma');
+    return ['form' => $this->calculadoraForm];
+  }
+
   public function SumaAction()
   {
     /** @var Request $request */

@@ -22,38 +22,11 @@ return array(
         'may_terminate' => true,
         'child_routes' => array(
           'suma' => array(
-            'type' => 'literal',
+            'type' => 'segment',
             'options' => array(
-              'route' => '/suma',
+              'route' => '/:option',
               'defaults' => array(
-                'action' => 'suma',
-              ),
-            ),
-          ),
-          'resta' => array(
-            'type' => 'literal',
-            'options' => array(
-              'route' => '/resta',
-              'defaults' => array(
-                'action' => 'resta',
-              ),
-            ),
-          ),
-          'multiplicacion' => array(
-            'type' => 'literal',
-            'options' => array(
-              'route' => '/multiplicacion',
-              'defaults' => array(
-                'action' => 'multiplicacion',
-              ),
-            ),
-          ),
-          'division' => array(
-            'type' => 'literal',
-            'options' => array(
-              'route' => '/division',
-              'defaults' => array(
-                'action' => 'division',
+                'action' => 'calcular',
               ),
             ),
           ),

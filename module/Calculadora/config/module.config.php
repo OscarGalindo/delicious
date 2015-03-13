@@ -15,7 +15,7 @@ return array(
         'options' => array(
           'route' => '/calculadora',
           'defaults' => array(
-            'controller' => 'CalculadoraController',
+            'controller' => 'CalculadoraControllerFactory',
             'action' => 'index',
           ),
         ),
@@ -66,13 +66,13 @@ return array(
       'Zend\Cache\Service\StorageCacheAbstractServiceFactory',
       'Zend\Log\LoggerAbstractServiceFactory',
     ),
-    'invokables' => array(
-      'CalculadoraForm' => 'Calculadora\Form\CalculadoraForm',
+    'factories' => array(
+      'CalculadoraFormFactory' => 'Calculadora\Factory\Form\CalculadoraFormFactory',
     ),
   ),
   'controllers' => array(
-    'invokables' => array(
-      'CalculadoraController' => 'Calculadora\Controller\CalculadoraController',
+    'factories' => array(
+      'CalculadoraControllerFactory' => 'Calculadora\Factory\Controller\CalculadoraControllerFactory',
     ),
   ),
   'view_manager' => array(

@@ -6,7 +6,12 @@ use Zend\Mvc\Controller\AbstractActionController;
 
 class CalculadoraController extends AbstractActionController
 {
+  protected $calculadoraForm;
 
+  public function __construct($calculadoraForm)
+  {
+    $this->calculadoraForm = $calculadoraForm;
+  }
   public function indexAction()
   {
     return [];

@@ -10,7 +10,7 @@ namespace Calculadora\Entity;
 
 /**
  * Class Calculadora
- * @package Calculadora\Entity\Calculadora
+ * @package Calculadora\Entity
  */
 class Calculadora {
 

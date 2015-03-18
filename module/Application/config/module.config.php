@@ -13,42 +13,83 @@ return array(
             'home' => array(
                 'type' => 'Zend\Mvc\Router\Http\Literal',
                 'options' => array(
-                    'route'    => '/',
+                    'route' => '/',
                     'defaults' => array(
                         'controller' => 'Application\Controller\Index',
-                        'action'     => 'index',
+                        'action' => 'index',
                     ),
                 ),
             ),
-            // The following is a route to simplify getting started creating
-            // new controllers and actions without needing to create a new
-            // module. Simply drop new controllers in, and you can access them
-            // using the path /application/:controller/:action
-            'application' => array(
-                'type'    => 'Literal',
+            'bookmark' => array(
+                'type' => 'literal',
                 'options' => array(
-                    'route'    => '/application',
+                    'route' => '/bookmark',
                     'defaults' => array(
-                        '__NAMESPACE__' => 'Application\Controller',
-                        'controller'    => 'Index',
-                        'action'        => 'index',
+                        'controller' => 'BookmarkController',
+                        'action' => 'show',
                     ),
                 ),
                 'may_terminate' => true,
                 'child_routes' => array(
-                    'default' => array(
-                        'type'    => 'Segment',
+                    'create' => array(
+                        'type' => 'literal',
                         'options' => array(
-                            'route'    => '/[:controller[/:action]]',
-                            'constraints' => array(
-                                'controller' => '[a-zA-Z][a-zA-Z0-9_-]*',
-                                'action'     => '[a-zA-Z][a-zA-Z0-9_-]*',
-                            ),
+                            'route' => '/create',
                             'defaults' => array(
+                                'action' => 'create',
+                            ),
+                        ),
+                    ),
+                    'edit' => array(
+                        'type' => 'Segment',
+                        'options' => array(
+                            'route' => '/edit/:bookmark_id',
+                            'defaults' => array(
+                                'action' => 'edit',
+                            ),
+                        ),
+                    ),
+                    'delete' => array(
+                        'type' => 'Segment',
+                        'options' => array(
+                            'route' => '/delete/:bookmark_id',
+                            'defaults' => array(
+                                'action' => 'delete',
                             ),
                         ),
                     ),
                 ),
+            ),
+        ),
+    ),
+    'navigation' => array(
+        'default' => array(
+            array(
+                'label' => 'Home',
+                'route' => 'home',
+                'icon' => 'fa fa-home',
+            ),
+            array(
+                'label' => 'Bookmarks Index',
+                'route' => 'bookmark',
+                'icon' => 'fa fa-star',
+                'pages' => array(
+                    array(
+                        'label' => 'Index bookmarks',
+                        'route' => 'bookmark',
+                        'icon' => 'fa fa-plus',
+                    ),
+                    array(
+                        'label' => 'Create bookmark',
+                        'route' => 'bookmark/create',
+                        'icon' => 'fa fa-plus',
+                    ),
+                ),
+            ),
+            array(
+                'label' => 'Calculadora',
+                'route' => 'calculadora',
+                'icon' => 'fa fa-star',
             ),
         ),
     ),
@@ -60,43 +101,64 @@ return array(
         'aliases' => array(
             'translator' => 'MvcTranslator',
         ),
+        'factories' => array(
+            'navigation' => 'Zend\Navigation\Service\DefaultNavigationFactory',
+        ),
+        'invokables' => array(
+            'CreateForm' => 'Application\Form\CreateForm',
+        ),
     ),
     'translator' => array(
         'locale' => 'en_US',
         'translation_file_patterns' => array(
             array(
-                'type'     => 'gettext',
+                'type' => 'gettext',
                 'base_dir' => __DIR__ . '/../language',
-                'pattern'  => '%s.mo',
+                'pattern' => '%s.mo',
             ),
         ),
     ),
     'controllers' => array(
         'invokables' => array(
-            'Application\Controller\Index' => 'Application\Controller\IndexController'
+            'Application\Controller\Index' => 'Application\Controller\IndexController',
+        ),
+        'factories' => array(
+            'BookmarkController' => 'Application\Factory\BookmarkControllerFactory',
         ),
     ),
     'view_manager' => array(
         'display_not_found_reason' => true,
-        'display_exceptions'       => true,
-        'doctype'                  => 'HTML5',
-        'not_found_template'       => 'error/404',
-        'exception_template'       => 'error/index',
+        'display_exceptions' => true,
+        'doctype' => 'HTML5',
+        'not_found_template' => 'error/404',
+        'exception_template' => 'error/index',
         'template_map' => array(
-            'layout/layout'           => __DIR__ . '/../view/layout/layout.phtml',
+            'layout/layout' => __DIR__ . '/../view/layout/layout.phtml',
             'application/index/index' => __DIR__ . '/../view/application/index/index.phtml',
-            'error/404'               => __DIR__ . '/../view/error/404.phtml',
-            'error/index'             => __DIR__ . '/../view/error/index.phtml',
+            'error/404' => __DIR__ . '/../view/error/404.phtml',
+            'error/index' => __DIR__ . '/../view/error/index.phtml',
         ),
         'template_path_stack' => array(
             __DIR__ . '/../view',
         ),
     ),
-    // Placeholder for console routes
+    'doctrine' => array(
+        'driver' => array(
+            'BookmarkEntity' => array(
+                'class' => 'Doctrine\ORM\Mapping\Driver\AnnotationDriver',
+                'cache' => 'array',
+                'paths' => array(__DIR__ . '/../src/Application/Entity'),
+            ),
+            'orm_default' => array(
+                'drivers' => array(
+                    'Application\Entity' => 'BookmarkEntity',
+                ),
+            ),
+        ),
+    ),
     'console' => array(
         'router' => array(
-            'routes' => array(
-            ),
+            'routes' => array(),
         ),
     ),
 );

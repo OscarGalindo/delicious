@@ -1,3 +1,4 @@
+config/application.config.old
 nbproject
 ._*
 .~lock.*
@@ -7,4 +8,5 @@ nbproject
 .project
 .settings
 composer.lock
-vendor/bin
+vendor/
+public/bower_components

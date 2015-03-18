@@ -1,0 +1,29 @@
+<div class="container">
+    <div class="row">
+        <div class="col-sm-8 col-sm-offset-2">
+            <div class="well clearfix">
+                <div class="profile">
+                    <div class="imgoutter">
+                        <img src="/images/profile.jpg" alt="default"/>
+                    </div>
+                    <p>
+                        <h4><?php echo $user->getName() ?></h4>
+                        <h5><?php echo $user->getUsername() ?></h5>
+                    </p>
+                </div>
+                <div class="profilebody">
+                    <header>
+                        <div class="row">
+
+                        </div>
+                    </header>
+                    <section>
+                        $user->ID: <?php echo $user->getId() ?><br/>
+                        $user->Email: <?php echo $user->getEmail() ?><br/>
+                        $user->getUsername: <?php echo $user->getUsername() ?><br/>
+                    </section>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

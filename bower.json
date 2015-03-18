@@ -1,0 +1,29 @@
+{
+  "name": "delicious",
+  "version": "0.0.1",
+  "homepage": "https://github.com/kaseOga/delicious",
+  "authors": [
+    "kaseOga <galindero@gmail.com>"
+  ],
+  "description": "daw delicious",
+  "main": "public/css/delicious.css",
+  "keywords": [
+    "delicious"
+  ],
+  "license": "MIT",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "jquery": "~2.1.3",
+    "fontawesome": "~4.3.0",
+    "bootstrap": "~3.3.2",
+    "custombox": "~2.2.5",
+    "bootswatch": "e5a82f67ec16aecd9b19d7f296dc3094f9ba08ee"
+  }
+}

@@ -1,0 +1,22 @@
+<div class="container">
+  <div class="row">
+    <ul class="listrap">
+      <?php foreach ($bookmarks as $bm): ?>
+        <li>
+          <div class="listrap-toggle">
+            <img src="http://lorempixel.com/60/60/people/?v=1" class="img-circle"/>
+          </div>
+          <strong>
+            <a target="_blank" href="<?php echo $bm->getUrl(); ?>"><?php echo $bm->getTitle(); ?></a>
+            - <?php echo $bm->getDescription(); ?>
+          </strong>
+
+          <div class="adminBookmark">
+            <a class="btn btn-warning" href="<?php echo $this->url('bookmark/edit', ['bookmark_id' => $bm->getId()]) ?>">Edit</a>
+            <a class="btn btn-danger" href="<?php echo $this->url('bookmark/delete', ['bookmark_id' => $bm->getId()]) ?>">Delete</a>
+          </div>
+        </li>
+      <?php endforeach; ?>
+    </ul>
+  </div>
+</div>

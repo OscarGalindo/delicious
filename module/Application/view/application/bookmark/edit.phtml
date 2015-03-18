@@ -1,0 +1,27 @@
+<?php
+
+use Application\Form\Fieldset\BookmarkFieldset;
+
+$form = $editForm;
+$form->prepare();
+$form->setAttribute('class', 'form');
+?>
+
+<div id="signup" class="panel panel-default col-md-8 col-md-offset-2">
+  <h1>Edit bookmark</h1>
+  <hr class="colorgraph">
+  <?php echo $this->form()->openTag($form) ?>
+  <?php foreach ($form as $element): ?>
+
+    <?php if ($element instanceof BookmarkFieldset): ?>
+      <?php echo $this->formCollection($form->get('bookmarkFieldset')) ?>
+    <?php endif; ?>
+
+    <div class="form-group">
+      <?php if ($element instanceof Zend\Form\Element\Submit): ?>
+        <?php echo $this->formButton($element) ?>
+      <?php endif ?>
+    </div>
+  <?php endforeach ?>
+  <?php echo $this->form()->closeTag() ?>
+</div>

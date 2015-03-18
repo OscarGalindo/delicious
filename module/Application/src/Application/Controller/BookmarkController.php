@@ -11,73 +11,73 @@ use Zend\View\Model\ViewModel;
 class BookmarkController extends AbstractActionController
 {
 
-    /**
-     * @var EntityManager
-     */
-    protected $entityManager = null;
+  /**
+   * @var EntityManager
+   */
+  protected $entityManager = null;
 
-    /**
-     * @param EntityManager $entityManager
-     */
-    public function __construct(EntityManager $entityManager)
-    {
-        $this->entityManager = $entityManager;
+  /**
+   * @param EntityManager $entityManager
+   */
+  public function __construct(EntityManager $entityManager)
+  {
+    $this->entityManager = $entityManager;
+  }
+
+  /**
+   * @return ViewModel
+   */
+  public function indexAction()
+  {
+    return new ViewModel();
+  }
+
+  /**
+   * @return ViewModel
+   */
+  public function showAction()
+  {
+    $bookmarks = $this->entityManager->getRepository('Application\Entity\Bookmark')->findAll();
+
+    return ['bookmarks' => $bookmarks];
+  }
+
+  /**
+   * @return ViewModel
+   */
+  public function createAction()
+  {
+    $bookmarkForm = new CreateForm($this->entityManager);
+
+    $bookmark = new Bookmark();
+    $bookmarkForm->bind($bookmark);
+
+    if ($this->request->isPost()) {
+      $bookmarkForm->setData($this->request->getPost());
+
+      if ($bookmarkForm->isValid()) {
+        $this->entityManager->persist($bookmark);
+        $this->entityManager->flush();
+      }
     }
 
-    /**
-     * @return ViewModel
-     */
-    public function indexAction()
-    {
-        return new ViewModel();
-    }
+    return array('createForm' => $bookmarkForm);
+  }
 
-    /**
-     * @return ViewModel
-     */
-    public function showAction()
-    {
-        $bookmarks = $this->entityManager->getRepository('Application\Entity\Bookmark')->findAll();
+  /**
+   * @return ViewModel
+   */
+  public function editAction()
+  {
+    return new ViewModel();
+  }
 
-        return ['bookmarks' => $bookmarks];
-    }
-
-    /**
-     * @return ViewModel
-     */
-    public function createAction()
-    {
-        $bookmarkForm = new CreateForm($this->entityManager);
-
-        $bookmark = new Bookmark();
-        $bookmarkForm->bind($bookmark);
-
-        if ($this->request->isPost()) {
-            $bookmarkForm->setData($this->request->getPost());
-
-            if ($bookmarkForm->isValid()) {
-                $this->entityManager->persist($bookmark);
-                $this->entityManager->flush();
-            }
-        }
-
-        return array('createForm' => $bookmarkForm);
-    }
-
-    /**
-     * @return ViewModel
-     */
-    public function editAction()
-    {
-        return new ViewModel();
-    }
-
-    /**
-     * @return ViewModel
-     */
-    public function deleteAction()
-    {
-        return new ViewModel();
-    }
+  /**
+   * @return ViewModel
+   */
+  public function deleteAction()
+  {
+    return new ViewModel();
+  }
 }
 

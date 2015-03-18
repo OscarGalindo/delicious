@@ -11,24 +11,12 @@ return array(
   'router' => array(
     'routes' => array(
       'calculadora' => array(
-        'type' => 'literal',
+        'type' => 'Segment',
         'options' => array(
-          'route' => '/calculadora',
+          'route' => '/calculadora[/:type]',
           'defaults' => array(
             'controller' => 'CalculadoraControllerFactory',
             'action' => 'index',
-          ),
-        ),
-        'may_terminate' => true,
-        'child_routes' => array(
-          'suma' => array(
-            'type' => 'segment',
-            'options' => array(
-              'route' => '/:option',
-              'defaults' => array(
-                'action' => 'calcular',
-              ),
-            ),
           ),
         ),
       ),

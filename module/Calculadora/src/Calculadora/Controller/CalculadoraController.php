@@ -18,27 +18,10 @@ class CalculadoraController extends AbstractActionController
 
   public function indexAction()
   {
-    return [];
-  }
-
-  public function calcularAction()
-  {
     /** @var Request $request */
     $request = $this->request;
-    $action = $this->params('action');
-
-    if ($request->isPost()) {
-      return ['resultado' => 'Resultado inside'];
-    }
-
-    $this->calculadoraForm->setAction('suma');
-    return ['form' => $this->calculadoraForm];
-  }
-
-  public function SumaAction()
-  {
-    /** @var Request $request */
-    $request = $this->request;
+    $type = $this->params('type');
+    $resultado = [];
 
     if ($request->isPost()) {
       $post = $request->getPost('CalculadoraFieldset');
@@ -46,27 +29,16 @@ class CalculadoraController extends AbstractActionController
       $calc = new Calculadora();
       $calc->setOp1($post['Operador 1']);
       $calc->setOp2($post['Operador 2']);
-
-      return ['form' => $this->calculadoraForm, 'resultado' => $calc->suma()];
+      $resultado = ['resultado' => $calc->$type()];
     }
 
     $this->calculadoraForm->setAction('suma');
-    return ['form' => $this->calculadoraForm];
-  }
+    $toView = [
+      'action' => $type,
+      'form' => $this->calculadoraForm,
+    ];
 
-  public function RestaAction()
-  {
-    return ['saludo' => 'hola'];
-  }
-
-  public function MultiplicacionAction()
-  {
-    return ['saludo' => 'hola'];
-  }
-
-  public function DivisionAction()
-  {
-    return ['saludo' => 'hola'];
+    return array_merge($toView, $resultado);
   }
 }
 

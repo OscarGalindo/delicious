@@ -1,6 +1,21 @@
 <ul class="nav nav-tabs">
-  <li><a href="<?php echo $this->url('calculadora/suma'); ?>">Suma</a></li>
-  <li><a href="<?php echo $this->url('calculadora/resta'); ?>">Resta</a></li>
-  <li><a href="<?php echo $this->url('calculadora/multiplicacion'); ?>">Multiplicación</a></li>
-  <li><a href="<?php echo $this->url('calculadora/division'); ?>">División</a></li>
+  <li><a href="<?php echo $this->url('calculadora', ['type' => 'suma']); ?>">Suma</a></li>
+  <li><a href="<?php echo $this->url('calculadora', ['type' => 'resta']); ?>">Resta</a></li>
+  <li><a href="<?php echo $this->url('calculadora', ['type' => 'multiplicacion']); ?>">Multiplicación</a></li>
+  <li><a href="<?php echo $this->url('calculadora', ['type' => 'division']); ?>">División</a></li>
 </ul>
+
+<?php
+$title = $this->action;
+$this->headTitle($title);
+?>
+<h1><?php echo $this->escapeHtml($title); ?></h1>
+<?php
+$this->form->setAttribute('action', $this->url('calculadora', ['type' => $this->action]));
+$this->form->prepare();
+
+echo $this->form($this->form);
+
+if ($this->resultado) {
+  echo 'El resultado es ' . $this->resultado;
+}

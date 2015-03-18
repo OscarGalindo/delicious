@@ -6,7 +6,7 @@
  * Time: 19:12
  */
 
-namespace Application\Form;
+namespace Application\Form\Fieldset;
 
 use Application\Entity\Bookmark;
 use Doctrine\Common\Persistence\ObjectManager;
@@ -22,12 +22,12 @@ class BookmarkFieldset extends Fieldset implements InputFilterProviderInterface
         $this->setHydrator(new DoctrineObject($objectManager))
             ->setObject(new Bookmark());
 
-//        $this->add(
-//            array(
-//                'type' => 'Zend\Form\Element\Hidden',
-//                'name' => 'id'
-//            )
-//        );
+        $this->add(
+            array(
+                'type' => 'Zend\Form\Element\Hidden',
+                'name' => 'id'
+            )
+        );
         $this->add(
             array(
                 'name' => 'url',

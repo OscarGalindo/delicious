@@ -4,6 +4,7 @@ namespace Application\Controller;
 
 use Application\Entity\Bookmark;
 use Application\Form\CreateForm;
+use Application\Form\EditForm;
 use Doctrine\ORM\EntityManager;
 use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\ViewModel;
@@ -69,7 +70,19 @@ class BookmarkController extends AbstractActionController
    */
   public function editAction()
   {
-    return new ViewModel();
+    $form = new EditForm($this->entityManager);
+
+    $bookmark = new Bookmark();
+    $form->bind($bookmark);
+
+    if ($this->request->isPost()) {
+      $form->setData($this->request->getPost());
+      if ($form->isValid()) {
+        $this->entityManager->flush();
+      }
+    }
+
+    return array('editForm' => $form);
   }
 
   /**

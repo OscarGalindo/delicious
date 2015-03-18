@@ -12,8 +12,8 @@
           </strong>
 
           <div class="adminBookmark">
-            <a class="btn btn-warning" href="<?php echo $this->url('bookmark/edit', ['id' => $bm->getId()]) ?>">Edit</a>
-            <a class="btn btn-danger" href="<?php echo $this->url('bookmark/delete', ['id' => $bm->getId()]) ?>">Delete</a>
+            <a class="btn btn-warning" href="<?php echo $this->url('bookmark/edit', ['bookmark_id' => $bm->getId()]) ?>">Edit</a>
+            <a class="btn btn-danger" href="<?php echo $this->url('bookmark/delete', ['bookmark_id' => $bm->getId()]) ?>">Delete</a>
           </div>
         </li>
       <?php endforeach; ?>

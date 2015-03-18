@@ -43,7 +43,7 @@ return array(
                     'edit' => array(
                         'type' => 'Segment',
                         'options' => array(
-                            'route' => '/edit/:id',
+                            'route' => '/edit/:bookmark_id',
                             'defaults' => array(
                                 'action' => 'edit',
                             ),
@@ -52,7 +52,7 @@ return array(
                     'delete' => array(
                         'type' => 'Segment',
                         'options' => array(
-                            'route' => '/delete/:id',
+                            'route' => '/delete/:bookmark_id',
                             'defaults' => array(
                                 'action' => 'delete',
                             ),

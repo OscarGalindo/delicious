@@ -72,6 +72,11 @@ body {
     height: 60px;
 }
 
+.adminBookmark {
+  line-height: 60px;
+  float: right;
+}
+
 .listrap .listrap-toggle span {
     background-color: #428bca;
     opacity: 0.8;

@@ -40,6 +40,24 @@ return array(
                             ),
                         ),
                     ),
+                    'edit' => array(
+                        'type' => 'Segment',
+                        'options' => array(
+                            'route' => '/edit/:id',
+                            'defaults' => array(
+                                'action' => 'edit',
+                            ),
+                        ),
+                    ),
+                    'delete' => array(
+                        'type' => 'Segment',
+                        'options' => array(
+                            'route' => '/delete/:id',
+                            'defaults' => array(
+                                'action' => 'delete',
+                            ),
+                        ),
+                    ),
                 ),
             ),
         ),

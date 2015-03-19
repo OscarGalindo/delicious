@@ -24,12 +24,15 @@ class CalculadoraController extends AbstractActionController
     $resultado = [];
 
     if ($request->isPost()) {
-      $post = $request->getPost('CalculadoraFieldset');
-      /** @var Calculadora $calc */
-      $calc = new Calculadora();
-      $calc->setOp1($post['Operador 1']);
-      $calc->setOp2($post['Operador 2']);
-      $resultado = ['resultado' => $calc->$type()];
+      $this->calculadoraForm->setData($request->getPost());
+      if ($this->calculadoraForm->isValid()) {
+        $post = $request->getPost('CalculadoraFieldset');
+        /** @var Calculadora $calc */
+        $calc = new Calculadora();
+        $calc->setOp1($post['operador1']);
+        $calc->setOp2($post['operador2']);
+        $resultado = ['resultado' => $calc->$type()];
+      }
     }
 
     $this->calculadoraForm->setAction('suma');

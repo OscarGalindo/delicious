@@ -9,8 +9,9 @@
 namespace Calculadora\Fieldset;
 
 use Zend\Form\Fieldset;
+use Zend\InputFilter\InputFilterProviderInterface;
 
-class CalculadoraFieldset extends Fieldset
+class CalculadoraFieldset extends Fieldset implements InputFilterProviderInterface
 {
   function __construct()
   {
@@ -18,7 +19,7 @@ class CalculadoraFieldset extends Fieldset
 
     $this->add(
       array(
-        'name' => 'Operador 1',
+        'name' => 'operador1',
         'options' => array(
           'label' => 'Operador 1',
         ),
@@ -32,7 +33,7 @@ class CalculadoraFieldset extends Fieldset
 
     $this->add(
       array(
-        'name' => 'Operador 2',
+        'name' => 'operador2',
         'options' => array(
           'label' => 'Operador 2',
         ),
@@ -42,6 +43,46 @@ class CalculadoraFieldset extends Fieldset
           'placeholder' => 'Operador 2',
         ),
       )
+    );
+  }
+
+  /**
+   * Should return an array specification compatible with
+   * {@link Zend\InputFilter\Factory::createInputFilter()}.
+   *
+   * @return array
+   */
+  public function getInputFilterSpecification()
+  {
+    return array(
+      array(
+        'name' => 'operador1',
+        'required' => true,
+        'validators' => array(
+          array(
+            'name' => 'NotEmpty',
+            'options' => array(
+              'messages' => array(
+                'isEmpty' => 'Operador 1 vacio.',
+              )
+            ),
+          ),
+        ),
+      ),
+      array(
+        'name' => 'operador2',
+        'required' => true,
+        'validators' => array(
+          array(
+            'name' => 'NotEmpty',
+            'options' => array(
+              'messages' => array(
+                'isEmpty' => 'Operador 2 vacio.',
+              )
+            ),
+          ),
+        ),
+      ),
     );
   }
 }

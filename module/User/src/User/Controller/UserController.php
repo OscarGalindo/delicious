@@ -88,12 +88,12 @@ class UserController extends AbstractActionController
       return new JsonModel(['auth' => true]);
     }
 
-    $data = $this->getRequest()->getPost();
+    $postData = $this->getRequest()->getPost();
 
     $adapter = $userPlugin->getAuthAdapter();
     $adapter
-      ->setIdentity($data['email'])
-      ->setCredential($data['password']);
+      ->setIdentity($postData['email'])
+      ->setCredential($postData['password']);
 
     $authResult = $adapter->authenticate();
 
@@ -104,11 +104,7 @@ class UserController extends AbstractActionController
       $user = $authResult->getIdentity();
       $userPlugin->getAuthService()->getStorage()->write($user);
 
-      $result = [
-        'auth' => true,
-        'id' => $user->getId(),
-        'username' => $user->getUsername()
-      ];
+      $result = ['auth' => true];
     }
 
     return new JsonModel($result);

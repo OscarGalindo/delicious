@@ -85,7 +85,7 @@ class UserController extends AbstractActionController
     $userPlugin = $this->UserAuthentication();
 
     if ($userPlugin->hasIdentity()) {
-      return new JsonModel(['auth' => true]);
+      $this->redirect()->toRoute('user/profile');
     }
 
     $postData = $this->getRequest()->getPost();

@@ -85,10 +85,9 @@ class UserController extends AbstractActionController
     $userPlugin = $this->UserAuthentication();
 
     if ($userPlugin->hasIdentity()) {
-      return $this->redirect()->toRoute('/');
+      return new JsonModel(['auth' => true]);
     }
 
-    $result = ['status' => false, 'message' => 'Authentication failed. Please try again.'];
     $data = $this->getRequest()->getPost();
 
     $adapter = $userPlugin->getAuthAdapter();
@@ -98,11 +97,15 @@ class UserController extends AbstractActionController
 
     $authResult = $adapter->authenticate();
 
+    $result['messages'] = $authResult->getMessages();
+    $result['auth'] = false;
+
     if ($authResult->isValid()) {
       $user = $authResult->getIdentity();
+      $userPlugin->getAuthService()->getStorage()->write($user);
 
       $result = [
-        'status' => true,
+        'auth' => true,
         'id' => $user->getId(),
         'username' => $user->getUsername()
       ];

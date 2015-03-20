@@ -17,7 +17,7 @@ return array(
           'profile' => array(
             'type' => 'Segment',
             'options' => array(
-              'route' => '/:id_user',
+              'route' => '[/:id_user]',
               'defaults' => array(
                 'action' => 'profile',
               ),

@@ -4,57 +4,32 @@ return array(
   'router' => array(
     'routes' => array(
       'user' => array(
-        'type' => 'literal',
+        'type' => 'Segment',
         'options' => array(
-          'route' => '/user',
+          'route' => '/user[/:id_user]',
           'defaults' => array(
             'controller' => 'UserControllerFactory',
-            'action' => 'index',
+            'action' => 'profile',
           ),
         ),
-        'may_terminate' => true,
-        'child_routes' => array(
-          'profile' => array(
-            'type' => 'Segment',
-            'options' => array(
-              'route' => '[/:id_user]',
-              'defaults' => array(
-                'action' => 'profile',
-              ),
-            ),
+      ),
+      'signup' => array(
+        'type' => 'Literal',
+        'options' => array(
+          'route' => '/signup',
+          'defaults' => array(
+            'controller' => 'UserControllerFactory',
+            'action' => 'register',
           ),
-          'register' => array(
-            'type' => 'Literal',
-            'options' => array(
-              'route' => '/register',
-              'defaults' => array(
-                'controller' => 'UserControllerFactory',
-                'action' => 'register',
-              ),
-            ),
-          ),
-          'login' => array(
-            'type' => 'Literal',
-            'options' => array(
-              'route' => '/login',
-              'defaults' => array(
-                'controller' => 'UserControllerFactory',
-                'action' => 'login',
-              ),
-            ),
-          ),
-          'logout' => array(
-            'type' => 'Segment',
-            'options' => array(
-              'route' => '/logout[/:redirect_url]',
-              'constraints' => array(
-                'redirect_url' => '.*?'
-              ),
-              'defaults' => array(
-                'controller' => 'UserControllerFactory',
-                'action' => 'logout',
-              ),
-            ),
+        ),
+      ),
+      'signin' => array(
+        'type' => 'Literal',
+        'options' => array(
+          'route' => '/signin',
+          'defaults' => array(
+            'controller' => 'UserControllerFactory',
+            'action' => 'login',
           ),
         ),
       ),

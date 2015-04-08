@@ -5,7 +5,7 @@ namespace User\Controller;
 use Doctrine\Common\Persistence\ObjectManager;
 use User\Controller\Plugin\UserAuthenticationPlugin;
 use User\Form\RegisterForm;
-use Zend\Authentication\AuthenticationService;
+use Zend\Http\Request;
 use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\JsonModel;
 use Zend\View\Model\ViewModel;
@@ -40,7 +40,7 @@ class UserController extends AbstractActionController
   public function indexAction()
   {
     return [
-      'users' => $this->entityManager->getRepository('User\Entity\User')->findAll()
+        'users' => $this->entityManager->getRepository('User\Entity\User')->findAll()
     ];
   }
 
@@ -81,28 +81,26 @@ class UserController extends AbstractActionController
    */
   public function loginAction()
   {
+    /** @var Request $request */
+    $request = $this->request;
+
     /* @var $userPlugin UserAuthenticationPlugin */
     $userPlugin = $this->UserAuthentication();
 
-    if ($userPlugin->hasIdentity()) {
-      $this->redirect()->toRoute('user/profile');
-    }
-
-    $postData = $this->getRequest()->getPost();
+    $data = json_decode($request->getContent());
 
     $adapter = $userPlugin->getAuthAdapter();
     $adapter
-      ->setIdentity($postData['email'])
-      ->setCredential($postData['password']);
+        ->setIdentity($data->email)
+        ->setCredential($data->password);
 
     $authResult = $adapter->authenticate();
-
-    $result['messages'] = $authResult->getMessages();
-    $result['auth'] = false;
-
     if ($authResult->isValid()) {
       $user = $authResult->getIdentity();
-      $userPlugin->getAuthService()->getStorage()->write($user);
+      $userPlugin
+          ->getAuthService()
+          ->getStorage()
+          ->write($user);
 
       $result = ['auth' => true];
     }
@@ -127,11 +125,17 @@ class UserController extends AbstractActionController
    */
   public function profileAction()
   {
+    $userPlugin = $this->UserAuthentication();
+    if ($userPlugin->hasIdentity()) {
+      die(var_dump([$userPlugin->getAuthService()->hasIdentity()]));
+    } else {
+      echo 'adios';
+    }
     $id = $this->params()->fromRoute('id_user');
     $user = $this->entityManager->getRepository('User\Entity\User');
 
     return [
-      'user' => $user->find($id)
+        'user' => $user->find($id)
     ];
   }
 

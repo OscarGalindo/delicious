@@ -6,7 +6,7 @@
  * Time: 19:23
  */
 
-namespace Application\Listener;
+namespace User\Listener;
 
 
 class UserListener {

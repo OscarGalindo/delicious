@@ -34,18 +34,6 @@ class UserController extends AbstractActionController
   }
 
   /**
-   * Perfil de usuario
-   *
-   * @return ViewModel
-   */
-  public function indexAction()
-  {
-    return [
-        'users' => $this->entityManager->getRepository('User\Entity\User')->findAll()
-    ];
-  }
-
-  /**
    * Registro de nuevo usuario
    *
    * @return ViewModel
@@ -54,6 +42,7 @@ class UserController extends AbstractActionController
   {
     /* @var $userPlugin UserAuthenticationPlugin */
     $userPlugin = $this->UserAuthentication();
+    $registered = false;
 
     if ($userPlugin->hasIdentity()) {
       return $this->redirect()->toRoute('/');
@@ -67,18 +56,18 @@ class UserController extends AbstractActionController
 
         $this->entityManager->persist($user);
         $this->entityManager->flush();
-        $id = $user->getId();
-        return $this->redirect()->toRoute('user/profile', ['id_user' => $id]);
+
+        $registered = true;
       }
     }
 
-    return array('createForm' => $this->registerForm);
+    return new JsonModel([$registered]);
   }
 
   /**
-   * Formulario de login/Auth
+   * Authentication
    *
-   * @return ViewModel
+   * @return JsonModel
    */
   public function loginAction()
   {

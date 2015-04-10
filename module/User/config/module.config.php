@@ -6,7 +6,7 @@ return array(
       'user' => array(
         'type' => 'Segment',
         'options' => array(
-          'route' => '/user[/:id_user]',
+          'route' => '/profile[/:id_user]',
           'defaults' => array(
             'controller' => 'UserControllerFactory',
             'action' => 'profile',
@@ -54,9 +54,6 @@ return array(
         'identity_class' => 'User\Entity\User',
         'identity_property' => 'email',
         'credential_property' => 'password',
-//                'credential_callable' => function (\User\Entity\User $user, $passwordGiven) {
-//                  return password_hash($passwordGiven, PASSWORD_DEFAULT) == $user->getPassword();
-//                },
       ),
     ),
   ),
@@ -83,16 +80,8 @@ return array(
     ),
   ),
   'view_manager' => array(
-    'template_path_stack' => array(
-      __DIR__ . '/../view',
-    ),
     'strategies' => array(
       'ViewJsonStrategy',
-    ),
-  ),
-  'view_helpers' => array(
-    'invokables' => array(
-      'renderForm' => 'User\View\Helper\RenderForm'
     ),
   ),
 );

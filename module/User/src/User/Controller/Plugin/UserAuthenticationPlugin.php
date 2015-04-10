@@ -9,7 +9,6 @@
 namespace User\Controller\Plugin;
 
 use DoctrineModule\Authentication\Adapter\ObjectRepository as Adapter;
-use DoctrineModule\Authentication\Storage\ObjectRepository as Storage;
 use Zend\Mvc\Controller\Plugin\AbstractPlugin;
 use Zend\Authentication\AuthenticationService;
 use Zend\ServiceManager\ServiceLocatorInterface;
@@ -30,11 +29,6 @@ class UserAuthenticationPlugin extends AbstractPlugin
    * @var ServiceLocatorInterface
    */
   protected $serviceLocator;
-
-  /**
-   * @var Storage
-   */
-  protected $authStorage;
 
   /**
    * Proxy convenience method
@@ -96,24 +90,5 @@ class UserAuthenticationPlugin extends AbstractPlugin
   {
     $this->authService = $authService;
     return $this;
-  }
-
-  /**
-   * Get storage
-   *
-   * @return Storage
-   */
-  public function getAuthStorage()
-  {
-    return $this->authStorage;
-  }
-
-  /**
-   * @param Storage $storage
-   */
-  public function setAuthStorage(Storage $authStorage)
-  {
-    $this->authStorage = $authStorage;
-    return $this->authStorage;
   }
 }

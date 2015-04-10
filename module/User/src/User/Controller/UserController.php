@@ -9,7 +9,6 @@ use User\Form\RegisterForm;
 use Zend\Http\Request;
 use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\JsonModel;
-use Zend\View\Model\ViewModel;
 
 class UserController extends AbstractActionController
 {
@@ -36,7 +35,7 @@ class UserController extends AbstractActionController
   /**
    * Registro de nuevo usuario
    *
-   * @return ViewModel
+   * @return JsonModel
    */
   public function registerAction()
   {
@@ -110,17 +109,17 @@ class UserController extends AbstractActionController
   /**
    * Logout de la página
    *
-   * @return ViewModel
+   * @return JsonModel
    */
   public function logoutAction()
   {
-    return new ViewModel();
+    return new JsonModel([]);
   }
 
   /**
    * Perfil de usuario
    *
-   * @return ViewModel
+   * @return JsonModel
    */
   public function profileAction()
   {
@@ -133,9 +132,9 @@ class UserController extends AbstractActionController
     $id = $this->params()->fromRoute('id_user');
     $user = $this->entityManager->getRepository('User\Entity\User');
 
-    return [
+    return new JsonModel([
         'user' => $user->find($id)
-    ];
+    ]);
   }
 
 

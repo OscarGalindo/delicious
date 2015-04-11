@@ -3,7 +3,6 @@
 namespace User\Controller;
 
 use Doctrine\Common\Persistence\ObjectManager;
-use JWT;
 use User\Controller\Plugin\UserAuthenticationPlugin;
 use User\Form\RegisterForm;
 use Zend\Http\Request;
@@ -75,6 +74,7 @@ class UserController extends AbstractActionController
 
     /* @var $userPlugin UserAuthenticationPlugin */
     $userPlugin = $this->UserAuthentication();
+    $userService = $userPlugin->getUserService();
 
     $data = json_decode($request->getContent());
     $result = ['auth' => false];
@@ -87,18 +87,10 @@ class UserController extends AbstractActionController
     $authResult = $adapter->authenticate();
     if ($authResult->isValid()) {
       $user = $authResult->getIdentity();
-
-      $key = 'U7AqCsldWBrTW3zdUTBg5ibwGjqktWlAEhqCYI8MjnBZvS7N';
-      $now = time();
-      $payload = [
-          'iat' => $now,
-          'email' => $user->getEmail(),
-      ];
-
-      $token = JWT::encode($payload, $key);
+      $token = $userService->generateToken($user);
 
       $result = [
-          'auth' => true,
+          'auth'  => true,
           'token' => $token
       ];
     }

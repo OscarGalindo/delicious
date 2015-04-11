@@ -28,12 +28,14 @@ class UserAuthenticationPluginFactory implements FactoryInterface
     $serviceManager = $pluginManager->getServiceLocator();
 
     /* @var $authService AuthenticationService */
+    $userService = $serviceManager->get('UserService');
     $authService = $serviceManager->get('UserAuthenticationServiceFactory');
     $authAdapter = $authService->getAdapter();
 
     $userAuthenticationPlugin = new UserAuthenticationPlugin();
     $userAuthenticationPlugin
         ->setAuthService($authService)
+        ->setUserService($userService)
         ->setAuthAdapter($authAdapter);
 
     return $userAuthenticationPlugin;

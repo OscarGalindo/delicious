@@ -9,6 +9,7 @@
 namespace User\Controller\Plugin;
 
 use DoctrineModule\Authentication\Adapter\ObjectRepository as Adapter;
+use User\Service\UserService;
 use Zend\Mvc\Controller\Plugin\AbstractPlugin;
 use Zend\Authentication\AuthenticationService;
 use Zend\ServiceManager\ServiceLocatorInterface;
@@ -29,6 +30,11 @@ class UserAuthenticationPlugin extends AbstractPlugin
    * @var ServiceLocatorInterface
    */
   protected $serviceLocator;
+
+  /**
+   * @var UserService
+   */
+  protected $userService;
 
   /**
    * Proxy convenience method
@@ -89,6 +95,23 @@ class UserAuthenticationPlugin extends AbstractPlugin
   public function setAuthService(AuthenticationService $authService)
   {
     $this->authService = $authService;
+    return $this;
+  }
+
+  /**
+   * @return UserService
+   */
+  public function getUserService()
+  {
+    return $this->userService;
+  }
+
+  /**
+   * @param UserService $userService
+   */
+  public function setUserService(UserService $userService)
+  {
+    $this->userService = $userService;
     return $this;
   }
 }
